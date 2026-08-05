@@ -5,6 +5,7 @@ import { getStory } from '../lib/storyblok';
 
 const story = await getStory('auto-insights');
 const heroSubheading = story?.content?.hero_subheading;
+const bodySections = story?.content?.body ?? [];
 ---
 
 <BaseLayout
@@ -29,8 +30,8 @@ const heroSubheading = story?.content?.hero_subheading;
 	<section class="section body-copy">
 		<div class="section-inner">
 			{
-				story ? (
-					<StoryblokComponent blok={story.content} />
+				bodySections.length > 0 ? (
+					bodySections.map((blok) => <StoryblokComponent blok={blok} />)
 				) : (
 					<>
 						<div class="body-block">
