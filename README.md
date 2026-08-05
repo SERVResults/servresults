@@ -32,7 +32,24 @@ cp .env.example .env   # fill in STORYBLOK_TOKEN
 npm run dev
 ```
 
-Runs at `http://localhost:4321`. In dev, Storyblok content is fetched with `version: draft`; in production builds it uses `published`.
+Runs at `http://localhost:4321` (or `https://localhost:4321` if a local cert is set up — see below). In dev, Storyblok content is fetched with `version: draft`; in production builds it uses `published`.
+
+### Local HTTPS (for Storyblok's Visual Editor preview)
+
+Storyblok's Visual Editor iframe refuses `http://` preview URLs. To preview with it locally:
+
+```bash
+# Download mkcert (Windows) — or use choco/scoop if you have them
+mkdir .tools
+curl -L -o .tools/mkcert.exe https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-windows-amd64.exe
+
+.tools/mkcert.exe -install
+.tools/mkcert.exe -cert-file .tools/localhost-cert.pem -key-file .tools/localhost-key.pem localhost 127.0.0.1 ::1
+```
+
+`astro.config.mjs` picks up `.tools/localhost-{cert,key}.pem` automatically if present and serves the dev server over HTTPS; without them it falls back to plain HTTP. `.tools/` is gitignored (it holds a private key) — each developer generates their own.
+
+In Storyblok, set the space's Visual Editor preview URL (Settings → Visual Editor) to `https://localhost:4321/`.
 
 ## Build
 
