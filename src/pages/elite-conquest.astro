@@ -17,7 +17,7 @@ const bodySections = story?.content?.body ?? [];
 				heroSubheading ? (
 					<p class="hero-sub">{heroSubheading}</p>
 				) : (
-					<p class="hero-sub placeholder-copy">[ELITE CONQUEST HERO COPY PENDING — managed in Storyblok]</p>
+					<p class="hero-sub">Details on this offering are coming soon — get in touch and we'll walk you through it.</p>
 				)
 			}
 			<div class="hero-actions">
@@ -34,7 +34,10 @@ const bodySections = story?.content?.body ?? [];
 					bodySections.map((blok) => <StoryblokComponent blok={blok} />)
 				) : (
 					<div class="body-block">
-						<p class="placeholder-copy">[ELITE CONQUEST BODY COPY PENDING — managed in Storyblok]</p>
+						<p>
+							We're finalizing the write-up for Elite Conquest. In the meantime,{' '}
+							<a href="/contact">contact us</a> and we'll walk you through what it offers.
+						</p>
 					</div>
 				)
 			}
@@ -79,5 +82,11 @@ const bodySections = story?.content?.body ?? [];
 		border: 1px solid var(--color-border);
 		border-left: 3px solid var(--color-accent-2);
 		border-radius: 12px;
+	}
+
+	.body-block a {
+		color: var(--color-accent);
+		font-weight: 600;
+		text-decoration: underline;
 	}
 </style>
