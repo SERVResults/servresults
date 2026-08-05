@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Storyblok CLI local staging/session data
 .storyblok/
+
+# local dev tooling (mkcert binary, generated TLS cert/key — never commit private keys)
+.tools/
