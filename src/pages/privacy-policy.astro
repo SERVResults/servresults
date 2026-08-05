@@ -5,10 +5,15 @@ const lastUpdated = 'August 2026';
 ---
 
 <BaseLayout title="Privacy Policy" description="How SERV Results collects, uses, and protects your information.">
-	<section class="section">
-		<div class="section-inner content">
+	<section class="page-hero">
+		<div class="wrap">
 			<p class="eyebrow">Privacy Policy</p>
 			<h1>Privacy Policy</h1>
+		</div>
+	</section>
+
+	<section class="section-body">
+		<div class="wrap content">
 			<p class="placeholder-copy">
 				[DRAFT — this page is scaffolding, not legal advice. Have counsel review before launch.]
 			</p>
@@ -46,8 +51,28 @@ const lastUpdated = 'August 2026';
 </BaseLayout>
 
 <style>
+	.page-hero {
+		background: var(--serv-ink);
+		color: var(--serv-off);
+		padding-block: 4.5rem 3rem;
+	}
+
+	.page-hero h1 {
+		color: var(--serv-off);
+		font-size: clamp(2rem, 1.3rem + 2.2vw, 2.75rem);
+		margin: 0;
+	}
+
+	.section-body {
+		padding-block: 4rem;
+	}
+
 	.content {
 		max-width: 720px;
+	}
+
+	.content h2 {
+		color: var(--serv-ink);
 	}
 
 	.updated {

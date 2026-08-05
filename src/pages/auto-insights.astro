@@ -1,131 +1,220 @@
 ---
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import { storyblokEditable, renderRichText } from '@storyblok/astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroField from '../components/HeroField.astro';
 import { getStory } from '../lib/storyblok';
 
 const story = await getStory('auto-insights');
-const heroSubheading = story?.content?.hero_subheading;
+const heroSubheading =
+	story?.content?.hero_subheading ??
+	'Two percent of your visitors fill out a form. Auto Insights lets you talk to half of them.';
 const bodySections = story?.content?.body ?? [];
+
+const fallbackSteps = [
+	{
+		heading: 'Identify the visitor',
+		body: 'A single tag on your existing site matches anonymous sessions against our database of in-market consumers. No change to your website provider.',
+		pending: true,
+	},
+	{
+		heading: 'Engage with 3+ emails',
+		body: 'Every identified shopper enters a sequence built around what they looked at — sales or service. Email and direct mail are handled as part of Auto Insights, not a separate product.',
+	},
+	{
+		heading: 'Convert on site',
+		body: 'The offer engine reads shopper intent and presents the right offer to down-funnel visitors before they leave.',
+	},
+	{
+		heading: 'Measure the lift',
+		body: 'Reporting compares 1st party lead volume and close rate before and after. The 30% increase is the floor we commit to.',
+	},
+];
 ---
 
 <BaseLayout
 	title="Auto Insights"
 	description="Auto Insights de-anonymizes dealership website traffic and converts it into high-closing leads with targeted email engagement."
 >
-	<section class="section hero">
-		<div class="hero-glow" aria-hidden="true"></div>
-		<div class="section-inner hero-inner">
-			<p class="eyebrow">Flagship Product</p>
-			<h1>Auto Insights</h1>
-			{
-				heroSubheading ? (
-					<p class="hero-sub">{heroSubheading}</p>
-				) : (
-					<p class="hero-sub placeholder-copy">[AUTO INSIGHTS HERO COPY PENDING — managed in Storyblok]</p>
-				)
-			}
-			<a class="btn btn-primary" href="/contact">Book a Demo</a>
+	<section class="hero hero--product">
+		<HeroField variant="product" />
+		<div class="wrap hero--product__inner">
+			<p class="eyebrow">Auto Insights</p>
+			<h1>De-anonymize 50% of daily website traffic</h1>
+			<p class="hero__sub">{heroSubheading}</p>
 		</div>
 	</section>
 
-	<section class="section body-copy">
-		<div class="section-inner reveal">
-			{
-				bodySections.length > 0 ? (
-					bodySections.map((blok) => <StoryblokComponent blok={blok} />)
-				) : (
-					<>
-						<div class="body-block">
-							<h2>Unified dealership data</h2>
-							<p class="placeholder-copy">[AUTO INSIGHTS DATA CAPABILITIES COPY PENDING — managed in Storyblok]</p>
-						</div>
-						<div class="body-block">
-							<h2>Precision audience targeting</h2>
-							<p class="placeholder-copy">[AUTO INSIGHTS TARGETING COPY PENDING — managed in Storyblok]</p>
-						</div>
-						<div class="body-block">
-							<h2>Email &amp; direct mail, connected</h2>
-							<p class="placeholder-copy">[AUTO INSIGHTS EMAIL/MAIL COPY PENDING — managed in Storyblok]</p>
-						</div>
-					</>
-				)
-			}
+	<section class="stats-section">
+		<div class="wrap">
+			<div class="stat-bar">
+				<div class="stat-bar__item">
+					<p class="stat-bar__num">50%</p>
+					<p class="stat-bar__label">of daily traffic identified</p>
+				</div>
+				<div class="stat-bar__item">
+					<p class="stat-bar__num">3+</p>
+					<p class="stat-bar__label">emails per visitor</p>
+				</div>
+				<div class="stat-bar__item">
+					<p class="stat-bar__num">30%</p>
+					<p class="stat-bar__label">more website leads</p>
+				</div>
+				<div class="stat-bar__item">
+					<p class="stat-bar__num">15.3%</p>
+					<p class="stat-bar__label">average close rate</p>
+				</div>
+			</div>
+
+			<div class="step-rows">
+				{
+					bodySections.length > 0 ? (
+						bodySections.map((blok) => (
+							<div class="step-row" {...storyblokEditable(blok)}>
+								<span class="step-row__marker" aria-hidden="true" />
+								{blok.heading && <h3>{blok.heading}</h3>}
+								<div class="step-row__body">
+									{blok.body ? (
+										<Fragment set:html={renderRichText(blok.body)} />
+									) : (
+										<p class="placeholder-copy">[AUTO INSIGHTS SECTION COPY PENDING]</p>
+									)}
+								</div>
+							</div>
+						))
+					) : (
+						fallbackSteps.map((step, i) => (
+							<div class="step-row">
+								<p class="step-row__num">{String(i + 1).padStart(2, '0')}</p>
+								<h3>{step.heading}</h3>
+								<div class="step-row__body">
+									<p>
+										{step.body} {step.pending && <span class="placeholder-copy">[AUTO INSIGHTS COPY PENDING]</span>}
+									</p>
+								</div>
+							</div>
+						))
+					)
+				}
+			</div>
 		</div>
 	</section>
 
-	<section class="section cta">
-		<div class="section-inner cta-inner reveal">
-			<h2>See Auto Insights on your own data.</h2>
-			<a class="btn btn-primary" href="/contact">Book a Demo</a>
+	<section class="cta-band">
+		<div class="wrap cta-band__inner">
+			<div>
+				<h3>Twenty minutes to see your own numbers</h3>
+				<p>Name, email, dealership, and what you want to fix.</p>
+			</div>
+			<a class="btn btn-primary" href="/contact">Schedule Demo</a>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	.hero {
+	.hero--product {
 		position: relative;
 		overflow: hidden;
-		background: var(--color-dark);
-		color: var(--color-on-dark);
-		text-align: center;
+		background: var(--serv-ink);
+		color: var(--serv-off);
+		padding-block: clamp(3.5rem, 6vw, 5rem) clamp(3.5rem, 6vw, 4.25rem);
 	}
 
-	.hero-glow {
-		position: absolute;
-		inset: -20%;
-		background: radial-gradient(
-			40% 50% at 50% 40%,
-			color-mix(in srgb, var(--color-accent) 45%, transparent),
-			transparent
-		);
-		filter: blur(60px);
-		animation: drift 18s ease-in-out infinite alternate;
-	}
-
-	@keyframes drift {
-		0% {
-			transform: translate(0, 0) scale(1);
-		}
-		100% {
-			transform: translate(-3%, 4%) scale(1.08);
-		}
-	}
-
-	.hero-inner {
+	.hero--product__inner {
 		position: relative;
-		z-index: 1;
-		max-width: 680px;
-		margin: 0 auto;
+		z-index: 2;
+		max-width: 860px;
 	}
 
-	.hero h1 {
-		font-size: clamp(2.25rem, 5vw, 3rem);
-		color: var(--color-on-dark);
+	.hero--product h1 {
+		font-size: clamp(2rem, 1.05rem + 4.2vw, 3.375rem);
+		line-height: 1.06;
+		letter-spacing: -0.03em;
+		color: var(--serv-off);
+		margin: 0;
 	}
 
-	.hero-sub {
-		font-size: 1.1rem;
-		margin-bottom: 2rem;
-		color: var(--color-on-dark-muted);
+	.hero__sub {
+		font-size: clamp(1rem, 0.85rem + 0.5vw, 1.125rem);
+		max-width: 56ch;
+		color: var(--serv-text-muted-on-dark);
+		margin: 1.5rem 0 0;
 	}
 
-	.body-block {
-		margin-bottom: 2rem;
-		padding: 1.75rem 2rem;
-		border: 1px solid var(--color-border);
-		border-left: 3px solid var(--color-accent);
-		border-radius: 12px;
+	.stats-section {
+		background: var(--serv-off);
 	}
 
-	.body-block:last-child {
-		margin-bottom: 0;
+	.stat-bar {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1px;
+		background: var(--serv-border-on-light-strong);
+		border: 1px solid var(--serv-border-on-light-strong);
+		margin-top: -2rem;
+		position: relative;
+		z-index: 3;
 	}
 
-	.body-block h2 {
-		font-size: 1.3rem;
+	.stat-bar__item {
+		background: #fff;
+		padding: 1.625rem;
 	}
 
-	.cta-inner {
-		text-align: center;
+	.stat-bar__num {
+		font-size: 1.875rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		color: var(--serv-primary-deep);
+		margin: 0;
+	}
+
+	.stat-bar__label {
+		margin: 0.5rem 0 0;
+		font-size: 0.813rem;
+		line-height: 1.45;
+		color: var(--serv-text-muted-on-light);
+	}
+
+	.step-rows {
+		margin: 1.5rem 0 4.75rem;
+	}
+
+	@media (max-width: 700px) {
+		.stat-bar {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 420px) {
+		.stat-bar {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.cta-band {
+		background: var(--serv-ink);
+		color: var(--serv-off);
+		padding-block: clamp(2.5rem, 4vw, 3.75rem);
+	}
+
+	.cta-band__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 2.5rem;
+		flex-wrap: wrap;
+	}
+
+	.cta-band__inner h3 {
+		color: var(--serv-off);
+		font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+		letter-spacing: -0.02em;
+		margin: 0 0 0.625rem;
+	}
+
+	.cta-band__inner p {
+		color: var(--serv-text-muted-on-dark);
+		margin: 0;
+		font-size: 0.94rem;
 	}
 </style>

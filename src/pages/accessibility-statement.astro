@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = 'August 2026';
+---
+
+<BaseLayout title="Accessibility Statement" description="SERV Results' commitment to digital accessibility.">
+	<section class="page-hero">
+		<div class="wrap">
+			<p class="eyebrow">Accessibility Statement</p>
+			<h1>Accessibility Statement</h1>
+		</div>
+	</section>
+
+	<section class="section-body">
+		<div class="wrap content">
+			<p class="placeholder-copy">
+				[DRAFT — this page is scaffolding, not legal advice. Have counsel review before launch.]
+			</p>
+			<p class="updated">Last updated: {lastUpdated}</p>
+
+			<h2>Our commitment</h2>
+			<p>
+				SERV Results is committed to making our website usable by as many people as possible, including
+				visitors using assistive technology such as screen readers.
+			</p>
+
+			<h2>Standards</h2>
+			<p>
+				We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA wherever practical, and to
+				address accessibility issues as they're identified.
+			</p>
+
+			<h2>Feedback</h2>
+			<p>
+				If you encounter an accessibility barrier on this site, contact us at{' '}
+				<a href="mailto:info@servresults.com">info@servresults.com</a> and we'll work to address it.
+			</p>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.page-hero {
+		background: var(--serv-ink);
+		color: var(--serv-off);
+		padding-block: 4.5rem 3rem;
+	}
+
+	.page-hero h1 {
+		color: var(--serv-off);
+		font-size: clamp(2rem, 1.3rem + 2.2vw, 2.75rem);
+		margin: 0;
+	}
+
+	.section-body {
+		padding-block: 4rem;
+	}
+
+	.content {
+		max-width: 720px;
+	}
+
+	.updated {
+		font-size: 0.85rem;
+		margin-bottom: 2.5rem;
+	}
+
+	h2 {
+		font-size: 1.25rem;
+		margin-top: 2.5rem;
+	}
+</style>

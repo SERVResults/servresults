@@ -3,7 +3,6 @@ const links = [
 	{ href: '/auto-insights', label: 'Auto Insights' },
 	{ href: '/elite-conquest', label: 'Elite Conquest' },
 	{ href: '/about', label: 'About' },
-	{ href: '/contact', label: 'Contact' },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -27,7 +26,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 					))
 				}
 			</ul>
-			<a class="btn btn-primary nav-cta" href="/contact">Book a Demo</a>
+			<a class="btn btn-primary btn-sm nav-cta" href="/contact">Schedule Demo</a>
 		</nav>
 	</div>
 </header>
@@ -37,53 +36,51 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		background: var(--color-bg);
-		border-bottom: 1px solid var(--color-border);
+		background: var(--serv-ink);
+		border-bottom: 1px solid var(--serv-border-on-dark);
 	}
 
 	.wrap {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		max-width: var(--content-max-width);
-		margin: 0 auto;
-		padding: 1rem var(--gutter);
+		height: var(--nav-height);
+		box-sizing: border-box;
 	}
 
 	.logo {
-		font-family: var(--font-heading);
 		font-weight: 700;
-		font-size: 1.25rem;
-		color: var(--color-text);
-		text-decoration: none;
+		font-size: 1.15rem;
 		letter-spacing: -0.01em;
+		color: var(--serv-off);
+		text-decoration: none;
 	}
 
 	nav {
 		display: flex;
 		align-items: center;
-		gap: 2rem;
+		gap: 1.875rem;
 	}
 
 	nav ul {
 		display: flex;
 		list-style: none;
-		gap: 1.75rem;
+		gap: 1.875rem;
 		margin: 0;
 		padding: 0;
 	}
 
 	nav a {
-		color: var(--color-text-muted);
+		color: var(--serv-text-muted-on-dark);
 		text-decoration: none;
-		font-size: 0.95rem;
+		font-size: 0.844rem;
 		font-weight: 500;
 		transition: color 0.15s ease;
 	}
 
 	nav a:hover,
 	nav a[aria-current='page'] {
-		color: var(--color-text);
+		color: var(--serv-off);
 	}
 
 	.nav-cta {
@@ -105,7 +102,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 		display: block;
 		width: 22px;
 		height: 2px;
-		background: var(--color-text);
+		background: var(--serv-off);
 		position: relative;
 		transition: transform 0.15s ease;
 	}
@@ -132,8 +129,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 			right: 0;
 			flex-direction: column;
 			align-items: stretch;
-			background: var(--color-bg);
-			border-bottom: 1px solid var(--color-border);
+			background: var(--serv-ink);
+			border-bottom: 1px solid var(--serv-border-on-dark);
 			padding: 1.5rem var(--gutter);
 			gap: 1.5rem;
 			display: none;

@@ -1,0 +1,136 @@
+---
+// Dark-ink hero background: dot grid + radial vignette, with an optional
+// sweeping accent-dot layer and a car crossing the bottom edge. Mirrors the
+// approved "SERV Results Final" mockup's Home (variant="home", withCar) and
+// Auto Insights (variant="product") heroes. Render as the first child of a
+// `position: relative; overflow: hidden;` hero section.
+interface Props {
+	variant?: 'home' | 'product';
+	withCar?: boolean;
+}
+
+const { variant = 'home', withCar = false } = Astro.props;
+---
+
+<div class:list={['hero-field', `hero-field--${variant}`]} aria-hidden="true">
+	<div class="hero-field__dots"></div>
+	{variant === 'home' && <div class="hero-field__dots hero-field__dots--sweep"></div>}
+	<div class="hero-field__vignette"></div>
+	{
+		withCar && (
+			<div class="hero-field__road">
+				<div class="hero-field__car">
+					<svg viewBox="0 0 120 44" width="120" height="44">
+						<path
+							d="M3 33 C4 25 10 21 24 20 C33 12 45 9 58 9 C71 9 81 12 89 20 L104 22 C112 24 117 27 117 33"
+							fill="none"
+							stroke="var(--serv-off)"
+							stroke-width="1.8"
+							stroke-linejoin="round"
+							stroke-linecap="round"
+						/>
+						<line x1="3" y1="33" x2="117" y2="33" stroke="var(--serv-off)" stroke-width="1.8" stroke-linecap="round" />
+						<g class="hero-field__wheel">
+							<circle cx="31" cy="33" r="7.5" fill="var(--serv-primary)" />
+							<line x1="31" y1="27.5" x2="31" y2="38.5" stroke="var(--serv-ink)" stroke-width="1.4" opacity="0.6" />
+						</g>
+						<g class="hero-field__wheel">
+							<circle cx="97" cy="33" r="7.5" fill="var(--serv-primary)" />
+							<line x1="97" y1="27.5" x2="97" y2="38.5" stroke="var(--serv-ink)" stroke-width="1.4" opacity="0.6" />
+						</g>
+						<ellipse cx="60" cy="37" rx="52" ry="4" fill="var(--serv-primary)" opacity="0.22" />
+					</svg>
+				</div>
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.hero-field {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.hero-field__dots {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle, rgb(246 245 242 / 14%) 1.5px, transparent 1.6px);
+		background-size: 22px 22px;
+	}
+
+	.hero-field__dots--sweep {
+		background-image: radial-gradient(circle, rgb(58 95 192 / 85%) 2.2px, transparent 2.3px);
+		-webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+		mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+		-webkit-mask-size: 55% 100%;
+		mask-size: 55% 100%;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		animation: servSweep 12s ease-in-out infinite;
+		animation-play-state: var(--serv-play, running);
+	}
+
+	.hero-field__vignette {
+		position: absolute;
+		inset: 0;
+	}
+
+	.hero-field--home .hero-field__vignette {
+		background: radial-gradient(
+			115% 90% at 22% 45%,
+			var(--serv-ink) 38%,
+			rgb(13 18 25 / 72%) 68%,
+			rgb(13 18 25 / 25%) 100%
+		);
+	}
+
+	.hero-field--product .hero-field__vignette {
+		background: radial-gradient(
+			110% 90% at 18% 40%,
+			var(--serv-ink) 42%,
+			rgb(13 18 25 / 78%) 72%,
+			rgb(13 18 25 / 40%) 100%
+		);
+	}
+
+	.hero-field__road {
+		position: absolute;
+		inset: 0;
+	}
+
+	.hero-field__road::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 22px;
+		height: 1px;
+		background: var(--serv-border-on-dark);
+	}
+
+	.hero-field__car {
+		position: absolute;
+		bottom: 14px;
+		left: -16%;
+		width: 96px;
+		animation: servDriveR 13s linear infinite;
+		animation-play-state: var(--serv-play, running);
+	}
+
+	@media (min-width: 640px) {
+		.hero-field__car {
+			width: 120px;
+		}
+	}
+
+	.hero-field__wheel {
+		transform-box: fill-box;
+		transform-origin: center;
+		animation: servSpin 1s linear infinite;
+		animation-duration: var(--serv-wheel, 1s);
+		animation-play-state: var(--serv-play, running);
+	}
+</style>

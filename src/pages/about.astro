@@ -3,11 +3,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getStories } from '../lib/storyblok';
 
 const jobStories = await getStories('jobs/');
+
+const team = [
+	{ name: 'Sean Vega', title: 'CEO / Managing Partner', photo: '/team/sean-vega.jpg' },
+	{ name: 'Scottie Eisenfelder', title: 'CPO / Operating Partner', photo: '/team/scottie-eisenfelder.png' },
+	{ name: 'Jay Erkman', title: 'Vice President, Sales / Partner', photo: '/team/jay-erkman.jpg' },
+	{ name: 'Marvin Grimm', title: 'Executive Vice President', photo: '/team/marvin-grimm.png' },
+	{ name: 'Derek Rousso', title: 'Director of Operations', photo: '/team/derek-rousso.jpg' },
+	{ name: 'Michael Cappelli', title: 'Director of Support', photo: '/team/michael-cappelli.png' },
+	{ name: 'Karen Wallace', title: 'Accounting & Office Director', photo: '/team/karen-wallace.png' },
+	{ name: 'Jennifer Volatile', title: 'HR Director', photo: '/team/jennifer-volatile.png' },
+	{ name: 'Joe Finger', title: 'SERV Results', photo: '/team/joe-finger.png' },
+	{ name: 'Scot Eisenfelder', title: 'Founder/Managing Partner - SERV Holdings', photo: '/team/scot-eisenfelder.png' },
+	{ name: 'Rob Volatile', title: 'Founder/Managing Partner - SERV Holdings', photo: '/team/rob-volatile.jpg' },
+];
 ---
 
 <BaseLayout title="About" description="SERV Results builds data-driven marketing software for car dealerships.">
-	<section class="section hero">
-		<div class="section-inner hero-inner">
+	<section class="page-hero">
+		<div class="wrap page-hero__inner">
 			<p class="eyebrow">About SERV Results</p>
 			<h1>Automotive Experts. OEM Partners. Data Strategists. Dealer-Process Experts.</h1>
 			<p>
@@ -18,8 +32,8 @@ const jobStories = await getStories('jobs/');
 		</div>
 	</section>
 
-	<section class="section who-we-are">
-		<div class="section-inner who-we-are-inner reveal">
+	<section class="who-we-are">
+		<div class="wrap who-we-are__inner reveal">
 			<div class="experience-card">
 				<p class="experience-number">100+</p>
 				<p class="experience-label">years combined automotive experience</p>
@@ -45,17 +59,38 @@ const jobStories = await getStories('jobs/');
 		</div>
 	</section>
 
-	<section class="section brands">
-		<div class="section-inner reveal">
-			<p class="eyebrow">Who We Work With</p>
-			<!-- Brand names only for now — swap in licensed OEM logo assets (SVG/PNG) from the client once cleared for use. -->
+	<section class="team">
+		<div class="wrap reveal">
+			<p class="eyebrow eyebrow-deep">Meet Our Team</p>
+			<div class="team-grid">
+				{
+					team.map((member) => (
+						<div class="team-member">
+							<img class="team-photo" src={member.photo} alt={member.name} width="76" height="76" loading="lazy" />
+							<p class="team-name">{member.name}</p>
+							{member.title && <p class="team-title">{member.title}</p>}
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="brands">
+		<div class="wrap reveal">
+			<p class="eyebrow eyebrow-muted">Who We Work With</p>
+			<!-- Neutral wordmark chips, not licensed OEM logo marks — swap in licensed SVG/PNG logo assets from the client once cleared for use. -->
 			<ul class="brand-list">
 				{
 					[
 						'Subaru', 'Mazda', 'Chevrolet', 'GM', 'Lincoln', 'Mitsubishi', 'Buick', 'Kia', 'Honda', 'Hyundai',
 						'Ford', 'GMC', 'Nissan', 'Stellantis', 'Dodge', 'Acura', 'Porsche', 'Audi', 'Mercedes-Benz',
 						'Jaguar', 'Land Rover', 'Bentley', 'Ferrari',
-					].map((brand) => <li>{brand}</li>)
+					].map((brand) => (
+						<li class="brand-chip">
+							<span>{brand}</span>
+						</li>
+					))
 				}
 			</ul>
 		</div>
@@ -63,8 +98,8 @@ const jobStories = await getStories('jobs/');
 
 	{
 		jobStories.length > 0 && (
-			<section class="section hiring">
-				<div class="section-inner reveal">
+			<section class="hiring">
+				<div class="wrap reveal">
 					<h2>We're hiring</h2>
 					<div class="job-list">
 						{jobStories.map((job) => (
@@ -74,7 +109,9 @@ const jobStories = await getStories('jobs/');
 							</article>
 						))}
 					</div>
-					<a class="btn btn-secondary" href="/contact">Get in touch about openings</a>
+					<a class="btn btn-outline-on-light" href="/contact">
+						Get in touch about openings
+					</a>
 				</div>
 			</section>
 		)
@@ -82,25 +119,34 @@ const jobStories = await getStories('jobs/');
 </BaseLayout>
 
 <style>
-	.hero {
-		background: var(--color-bg-alt);
-		border-bottom: 1px solid var(--color-border);
+	.page-hero {
+		background: var(--serv-ink);
+		color: var(--serv-off);
+		padding-block: clamp(3.5rem, 6vw, 5rem);
 	}
 
-	.hero-inner {
+	.page-hero__inner {
 		max-width: 680px;
 	}
 
-	.hero h1 {
-		font-size: clamp(2rem, 4vw, 2.75rem);
+	.page-hero h1 {
+		color: var(--serv-off);
+		font-size: clamp(2rem, 1.3rem + 2.4vw, 2.75rem);
+		letter-spacing: -0.02em;
 	}
 
-	.hero p {
+	.page-hero p {
 		font-size: 1.05rem;
 		max-width: 60ch;
+		color: var(--serv-text-muted-on-dark);
+		margin-bottom: 0;
 	}
 
-	.who-we-are-inner {
+	.who-we-are {
+		padding-block: clamp(3rem, 5vw, 4.75rem);
+	}
+
+	.who-we-are__inner {
 		display: grid;
 		grid-template-columns: minmax(220px, 320px) 1fr;
 		gap: 2.5rem;
@@ -109,49 +155,40 @@ const jobStories = await getStories('jobs/');
 
 	.experience-card {
 		padding: 2rem;
-		background: var(--color-bg-alt);
-		border-radius: 12px;
-		border-left: 4px solid var(--color-accent);
+		background: var(--serv-off);
+		border-left: 3px solid var(--serv-primary);
 	}
 
 	.experience-number {
-		font-family: var(--font-heading);
 		font-size: 2.75rem;
-		font-weight: 700;
-		color: var(--color-accent);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+		color: var(--serv-primary);
 		margin: 0;
 	}
 
 	.experience-label {
 		margin: 0.25rem 0 0;
 		font-weight: 600;
-		color: var(--color-text);
+		color: var(--serv-ink);
 	}
 
 	.pillar-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem;
+		gap: 1px;
+		background: var(--serv-border-on-light-strong);
+		border: 1px solid var(--serv-border-on-light-strong);
 	}
 
 	.pillar {
+		background: #fff;
 		padding: 1.5rem;
-		border: 1px solid var(--color-border);
-		border-radius: 12px;
-		transition:
-			transform 0.2s ease,
-			box-shadow 0.2s ease,
-			border-color 0.2s ease;
-	}
-
-	.pillar:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 12px 24px -16px rgb(0 0 0 / 20%);
-		border-color: var(--color-accent-2);
 	}
 
 	.pillar h3 {
 		font-size: 1.05rem;
+		color: var(--serv-ink);
 		margin-bottom: 0.5rem;
 	}
 
@@ -161,51 +198,111 @@ const jobStories = await getStories('jobs/');
 	}
 
 	@media (max-width: 780px) {
-		.who-we-are-inner {
+		.who-we-are__inner {
 			grid-template-columns: 1fr;
 		}
 	}
 
+	.team {
+		border-top: 1px solid var(--serv-border-on-light);
+		padding-block: clamp(3rem, 4vw, 4rem);
+	}
+
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 2.25rem 1.5rem;
+		margin-top: 1.75rem;
+	}
+
+	.team-member {
+		text-align: center;
+	}
+
+	.team-photo {
+		width: 76px;
+		height: 76px;
+		border-radius: 50%;
+		object-fit: cover;
+		filter: grayscale(1);
+		margin: 0 auto 0.9375rem;
+	}
+
+	.team-name {
+		margin: 0;
+		font-size: 0.94rem;
+		font-weight: 600;
+		color: var(--serv-ink);
+	}
+
+	.team-title {
+		margin: 0.25rem 0 0;
+		font-size: 0.78rem;
+		line-height: 1.4;
+		color: var(--serv-text-muted-on-light);
+	}
+
 	.brands {
-		background: var(--color-bg-alt);
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
+		background: var(--serv-off);
+		border-top: 1px solid var(--serv-border-on-light);
+		border-bottom: 1px solid var(--serv-border-on-light);
+		padding-block: clamp(2.75rem, 4vw, 3.5rem);
 	}
 
 	.brand-list {
 		list-style: none;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem 1.25rem;
+		gap: 1px;
+		background: var(--serv-border-on-light-strong);
+		border: 1px solid var(--serv-border-on-light-strong);
 		margin: 1.5rem 0 0;
 		padding: 0;
 	}
 
-	.brand-list li {
-		font-weight: 600;
-		font-size: 0.95rem;
-		color: var(--color-text-muted);
+	.brand-chip {
+		background: #fff;
+		padding: 0.875rem 1.25rem;
+		display: flex;
+		align-items: center;
+		flex: 1 1 auto;
+	}
+
+	.brand-chip span {
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--serv-text-muted-on-light);
+		white-space: nowrap;
 	}
 
 	.hiring {
-		border-top: 1px solid var(--color-border);
+		padding-block: clamp(3rem, 4vw, 4rem);
+	}
+
+	.hiring h2 {
+		color: var(--serv-ink);
 	}
 
 	.job-list {
 		display: grid;
-		gap: 1rem;
+		gap: 1px;
+		background: var(--serv-border-on-light-strong);
+		border: 1px solid var(--serv-border-on-light-strong);
 		margin: 1.5rem 0 2rem;
 	}
 
 	.job-summary {
+		background: #fff;
 		padding: 1rem 1.5rem;
-		border: 1px solid var(--color-border);
-		border-radius: 8px;
 	}
 
 	.job-summary h3 {
 		margin: 0;
 		font-size: 1rem;
+		color: var(--serv-ink);
 	}
 
 	.job-meta {

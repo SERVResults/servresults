@@ -15,25 +15,10 @@ const { blok } = Astro.props;
 const html = blok.body ? renderRichText(blok.body) : '';
 ---
 
-<div class="auto-insights-section" {...storyblokEditable(blok)}>
-	{blok.heading && <h2>{blok.heading}</h2>}
-	{html ? <Fragment set:html={html} /> : <p class="placeholder-copy">[AUTO INSIGHTS SECTION COPY PENDING]</p>}
+<div class="step-row" {...storyblokEditable(blok)}>
+	<span class="step-row__marker" aria-hidden="true"></span>
+	{blok.heading && <h3>{blok.heading}</h3>}
+	<div class="step-row__body">
+		{html ? <Fragment set:html={html} /> : <p class="placeholder-copy">[AUTO INSIGHTS SECTION COPY PENDING]</p>}
+	</div>
 </div>
-
-<style>
-	.auto-insights-section {
-		margin-bottom: 2rem;
-		padding: 1.75rem 2rem;
-		border: 1px solid var(--color-border);
-		border-left: 3px solid var(--color-accent);
-		border-radius: 12px;
-	}
-
-	.auto-insights-section:last-child {
-		margin-bottom: 0;
-	}
-
-	.auto-insights-section h2 {
-		font-size: 1.3rem;
-	}
-</style>

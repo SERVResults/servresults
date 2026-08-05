@@ -24,19 +24,24 @@ const html = blok.description ? renderRichText(blok.description) : '';
 		{blok.location ?? '[LOCATION PENDING]'} &middot; {blok.employment_type ?? '[EMPLOYMENT TYPE PENDING]'}
 	</p>
 	{html ? <Fragment set:html={html} /> : <p class="placeholder-copy">[JOB DESCRIPTION COPY PENDING]</p>}
-	{blok.apply_url && (
-		<a class="btn btn-secondary" href={blok.apply_url}>
-			Apply
-		</a>
-	)}
+	{
+		blok.apply_url && (
+			<a class="btn btn-outline-on-light" href={blok.apply_url}>
+				Apply
+			</a>
+		)
+	}
 </article>
 
 <style>
 	.job-listing {
 		padding: 1.5rem;
-		border: 1px solid var(--color-border);
-		border-radius: 12px;
+		border: 1px solid var(--serv-border-on-light);
 		margin-bottom: 1.5rem;
+	}
+
+	.job-listing h3 {
+		color: var(--serv-ink);
 	}
 
 	.job-meta {

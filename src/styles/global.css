@@ -1,30 +1,39 @@
 :root {
-	/* Palette derived from the SERV Results logo (black background, blue
-	   accent bar) — refine once the client provides logo files/brand guide. */
-	--color-bg: #ffffff;
-	--color-bg-alt: #f6f7f9;
-	--color-text: #10151f;
-	--color-text-muted: #5a6472;
-	--color-border: #e4e7eb;
-	--color-accent: #2f6fed;
-	--color-accent-contrast: #ffffff;
+	/* Palette + type system approved in "SERV Results Final" design handoff. */
+	--serv-primary: #3a5fc0;
+	--serv-primary-deep: #2b48a3;
+	--serv-ink: #0d1219;
+	--serv-off: #f6f5f2;
+	--serv-white: #ffffff;
 
-	--color-dark: #0a0a0f;
-	--color-on-dark: #f5f6f8;
-	--color-on-dark-muted: rgb(245 246 248 / 72%);
-	--color-on-dark-border: rgb(245 246 248 / 24%);
+	--serv-text-on-light: var(--serv-ink);
+	--serv-text-muted-on-light: rgb(13 18 25 / 62%);
+	--serv-text-faint-on-light: rgb(13 18 25 / 45%);
+	--serv-border-on-light: rgb(13 18 25 / 10%);
+	--serv-border-on-light-strong: rgb(13 18 25 / 14%);
 
-	/* Secondary accent — used sparingly for gradients/glows, not as a base color. */
-	--color-accent-2: #22d3ee;
+	--serv-text-on-dark: var(--serv-off);
+	--serv-text-muted-on-dark: rgb(246 245 242 / 66%);
+	--serv-text-faint-on-dark: rgb(246 245 242 / 45%);
+	--serv-border-on-dark: rgb(246 245 242 / 14%);
+	--serv-border-on-dark-strong: rgb(246 245 242 / 22%);
 
-	--font-heading: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
-	--font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 
-	--content-max-width: 1120px;
-	--gutter: 1.5rem;
+	--content-max-width: 1240px;
+	--gutter: clamp(1.25rem, 1rem + 2vw, 3rem);
+	--nav-height: 74px;
+
+	--serv-play: running;
+	--serv-wheel: 1s;
 }
 
 @media (prefers-reduced-motion: reduce) {
+	:root {
+		--serv-play: paused;
+	}
+
 	*,
 	*::before,
 	*::after {
@@ -49,8 +58,8 @@ html {
 body {
 	margin: 0;
 	font-family: var(--font-body);
-	color: var(--color-text);
-	background: var(--color-bg);
+	color: var(--serv-text-on-light);
+	background: var(--serv-white);
 	line-height: 1.55;
 	-webkit-font-smoothing: antialiased;
 }
@@ -59,15 +68,16 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: var(--font-heading);
+	font-family: var(--font-body);
+	font-weight: 600;
 	line-height: 1.15;
-	letter-spacing: -0.015em;
+	letter-spacing: -0.02em;
 	margin: 0 0 1rem;
 }
 
 p {
 	margin: 0 0 1rem;
-	color: var(--color-text-muted);
+	color: var(--serv-text-muted-on-light);
 }
 
 a {
@@ -80,13 +90,10 @@ svg {
 	display: block;
 }
 
-.section {
-	padding: 5rem var(--gutter);
-}
-
-.section-inner {
+.wrap {
 	max-width: var(--content-max-width);
 	margin: 0 auto;
+	padding-inline: var(--gutter);
 }
 
 .reveal {
@@ -102,31 +109,45 @@ svg {
 	transform: none;
 }
 
-.gradient-text {
-	background: linear-gradient(100deg, var(--color-accent), var(--color-accent-2));
-	background-clip: text;
-	-webkit-background-clip: text;
-	color: transparent;
-}
-
 .eyebrow {
 	display: inline-block;
-	font-size: 0.8rem;
-	font-weight: 600;
+	font-family: var(--font-mono);
+	font-size: 0.72rem;
+	font-weight: 500;
 	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	color: var(--color-accent);
-	margin-bottom: 0.75rem;
+	letter-spacing: 0.18em;
+	color: var(--serv-primary);
+	margin-bottom: 1rem;
+}
+
+.eyebrow-muted {
+	color: var(--serv-text-faint-on-light);
+}
+
+.eyebrow-deep {
+	color: var(--serv-primary-deep);
+}
+
+.text-link {
+	display: inline-block;
+	font-weight: 600;
+	font-size: 0.906rem;
+	color: var(--serv-primary-deep);
+	text-decoration: none;
+}
+
+.text-link:hover {
+	text-decoration: underline;
 }
 
 .btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0.75rem 1.5rem;
-	border-radius: 8px;
+	padding: 0.9375rem 1.75rem;
+	border-radius: 0;
 	font-weight: 600;
-	font-size: 0.95rem;
+	font-size: 0.906rem;
 	text-decoration: none;
 	border: 1px solid transparent;
 	cursor: pointer;
@@ -134,47 +155,159 @@ svg {
 		background-color 0.15s ease,
 		border-color 0.15s ease,
 		color 0.15s ease,
-		transform 0.15s ease,
-		box-shadow 0.15s ease;
+		opacity 0.15s ease;
 }
 
 .btn-primary {
-	background: var(--color-accent);
-	color: var(--color-accent-contrast);
+	background: var(--serv-primary);
+	color: #fff;
 }
 
 .btn-primary:hover {
-	background: color-mix(in srgb, var(--color-accent) 85%, black);
-	transform: translateY(-1px);
-	box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--color-accent) 60%, transparent);
+	background: var(--serv-primary-deep);
 }
 
-.btn-secondary {
+.btn-outline-on-dark {
 	background: transparent;
-	color: var(--color-text);
-	border-color: var(--color-border);
+	color: var(--serv-off);
+	border-color: var(--serv-border-on-dark-strong);
 }
 
-.btn-secondary:hover {
-	border-color: var(--color-text);
+.btn-outline-on-dark:hover {
+	border-color: var(--serv-off);
 }
 
-.btn-secondary-on-dark {
+.btn-outline-on-light {
 	background: transparent;
-	color: var(--color-on-dark);
-	border-color: var(--color-on-dark-border);
+	color: var(--serv-ink);
+	border-color: var(--serv-ink);
 }
 
-.btn-secondary-on-dark:hover {
-	border-color: var(--color-on-dark);
+.btn-outline-on-light:hover {
+	background: var(--serv-ink);
+	color: var(--serv-off);
+}
+
+.btn-sm {
+	padding: 0.5625rem 1.125rem;
+	font-size: 0.85rem;
 }
 
 .placeholder-copy {
-	background: #fff7e6;
-	border: 1px dashed #e0a400;
-	color: #8a6300;
-	padding: 0.15rem 0.5rem;
-	border-radius: 4px;
-	font-size: 0.9em;
-	font-style: italic;
+	color: var(--serv-primary-deep);
+	font-family: var(--font-mono);
+	font-size: 0.78em;
+	font-weight: 500;
+}
+
+/* Auto Insights numbered step rows — shared between the Storyblok-driven
+   renderer (AutoInsightsSection.astro) and the no-CMS-content fallback on
+   the Auto Insights page, so both read as one design regardless of source. */
+.step-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	background: var(--serv-border-on-light-strong);
+	border-top: 1px solid var(--serv-border-on-light-strong);
+}
+
+.step-row {
+	background: var(--serv-off);
+	padding: 2.5rem 0;
+	display: grid;
+	grid-template-columns: 80px 1fr 1fr;
+	gap: 2.5rem;
+	align-items: start;
+}
+
+.step-row__num {
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--serv-text-faint-on-light);
+	margin: 0;
+}
+
+.step-row__marker {
+	width: 22px;
+	height: 3px;
+	background: var(--serv-primary);
+	margin-top: 0.5rem;
+}
+
+.step-row h3 {
+	font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem);
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	color: var(--serv-ink);
+	margin: 0;
+}
+
+.step-row__body :is(p, ul, ol) {
+	margin: 0;
+	font-size: 0.97rem;
+	line-height: 1.65;
+	color: var(--serv-text-muted-on-light);
+}
+
+@media (max-width: 780px) {
+	.step-row {
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		padding: 1.75rem 0;
+	}
+}
+
+/* Shared hero motion keyframes — see components/HeroField.astro */
+@keyframes servSpin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes servDriveR {
+	from {
+		left: -16%;
+	}
+
+	to {
+		left: 116%;
+	}
+}
+
+@keyframes servSweep {
+	from {
+		-webkit-mask-position: -70% 0;
+		mask-position: -70% 0;
+	}
+
+	to {
+		-webkit-mask-position: 170% 0;
+		mask-position: 170% 0;
+	}
+}
+
+@keyframes servPing {
+	0% {
+		opacity: 0.16;
+	}
+
+	35% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0.16;
+	}
+}
+
+@keyframes servGrow {
+	from {
+		transform: scaleX(0.12);
+	}
+
+	55%,
+	100% {
+		transform: scaleX(1);
+	}
 }
