@@ -79,6 +79,8 @@ This repo uses Astro's standard static build (`output: 'static'`), which Amplify
 3. Add environment variables in the Amplify app settings (App settings → Environment variables): `STORYBLOK_TOKEN`, plus whichever email-provider variable is chosen once the contact form is wired up.
 4. Push to the connected branch to trigger a deploy.
 
+**Rollout plan (per client decision):** the current live site (servresults.com, on Wix) stays up during the rebuild. Point a subdomain (e.g. `new.servresults.com`) at this Amplify app first for client review; only cut the apex domain over from Wix to Amplify after approval.
+
 ## Brand
 
 Colors and fonts are placeholders (`src/styles/global.css` — dark navy/charcoal neutral palette + one accent color) pending brand assets from the client. Reference sites for visual direction are also pending.
