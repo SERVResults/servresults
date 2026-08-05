@@ -20,7 +20,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	<section class="section proof">
 		<div class="section-inner proof-inner">
-			<p class="placeholder-copy">[HOME PAGE PROOF/METRICS COPY PENDING FROM CLIENT]</p>
+			<div class="stat-grid">
+				<div class="stat">
+					<p class="stat-number">30%+</p>
+					<p class="stat-label">Minimum increase in 1st-party leads</p>
+				</div>
+				<div class="stat">
+					<p class="stat-number">15.3%</p>
+					<p class="stat-label">Average close rate</p>
+				</div>
+				<div class="stat">
+					<p class="stat-number">~50%</p>
+					<p class="stat-label">Engagement of daily website visitors</p>
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -95,6 +108,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.proof-inner {
 		text-align: center;
+	}
+
+	.stat-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	.stat-number {
+		font-family: var(--font-heading);
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--color-accent);
+		margin: 0;
+	}
+
+	.stat-label {
+		margin: 0.25rem 0 0;
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 700px) {
+		.stat-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
 	}
 
 	.value-props h2 {

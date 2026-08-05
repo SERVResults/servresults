@@ -9,14 +9,55 @@ const jobStories = await getStories('jobs/');
 	<section class="section hero">
 		<div class="section-inner hero-inner">
 			<p class="eyebrow">About SERV Results</p>
-			<h1>Marketing software built for one industry: automotive.</h1>
-			<p class="placeholder-copy">[ABOUT COMPANY OVERVIEW COPY PENDING]</p>
+			<h1>Automotive Experts. OEM Partners. Data Strategists. Dealer-Process Experts.</h1>
+			<p>
+				Our leadership team brings firsthand perspective from OEMs, retail groups, and the vendor organizations
+				that serve dealerships. That experience shapes a program designed for corporate confidence and
+				dealer-level adoption.
+			</p>
 		</div>
 	</section>
 
-	<section class="section">
+	<section class="section who-we-are">
+		<div class="section-inner who-we-are-inner">
+			<div class="experience-card">
+				<p class="experience-number">100+</p>
+				<p class="experience-label">years combined automotive experience</p>
+			</div>
+			<div class="pillar-grid">
+				<div class="pillar">
+					<h3>OEM &amp; Retail Perspective</h3>
+					<p>Experience across manufacturer, dealer, and partner environments.</p>
+				</div>
+				<div class="pillar">
+					<h3>Tier 1&ndash;3 Expertise</h3>
+					<p>Strategic view from national, regional, and dealership execution levels.</p>
+				</div>
+				<div class="pillar">
+					<h3>Data-Led Innovation</h3>
+					<p>Focused on identifying hidden demand already visiting dealer websites.</p>
+				</div>
+				<div class="pillar">
+					<h3>Email Marketing Execution</h3>
+					<p>Dealer-branded campaigns that re-engage shoppers and create return visits.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section brands">
 		<div class="section-inner">
-			<p class="placeholder-copy">[ABOUT — MISSION / WHY WE EXIST COPY PENDING]</p>
+			<p class="eyebrow">Who We Work With</p>
+			<!-- Brand names only for now — swap in licensed OEM logo assets (SVG/PNG) from the client once cleared for use. -->
+			<ul class="brand-list">
+				{
+					[
+						'Subaru', 'Mazda', 'Chevrolet', 'GM', 'Lincoln', 'Mitsubishi', 'Buick', 'Kia', 'Honda', 'Hyundai',
+						'Ford', 'GMC', 'Nissan', 'Stellantis', 'Dodge', 'Acura', 'Porsche', 'Audi', 'Mercedes-Benz',
+						'Jaguar', 'Land Rover', 'Bentley', 'Ferrari',
+					].map((brand) => <li>{brand}</li>)
+				}
+			</ul>
 		</div>
 	</section>
 
@@ -52,6 +93,88 @@ const jobStories = await getStories('jobs/');
 
 	.hero h1 {
 		font-size: clamp(2rem, 4vw, 2.75rem);
+	}
+
+	.hero p {
+		font-size: 1.05rem;
+		max-width: 60ch;
+	}
+
+	.who-we-are-inner {
+		display: grid;
+		grid-template-columns: minmax(220px, 320px) 1fr;
+		gap: 2.5rem;
+		align-items: start;
+	}
+
+	.experience-card {
+		padding: 2rem;
+		background: var(--color-bg-alt);
+		border-radius: 12px;
+		border-left: 4px solid var(--color-accent);
+	}
+
+	.experience-number {
+		font-family: var(--font-heading);
+		font-size: 2.75rem;
+		font-weight: 700;
+		color: var(--color-accent);
+		margin: 0;
+	}
+
+	.experience-label {
+		margin: 0.25rem 0 0;
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.pillar-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+
+	.pillar {
+		padding: 1.5rem;
+		border: 1px solid var(--color-border);
+		border-radius: 12px;
+	}
+
+	.pillar h3 {
+		font-size: 1.05rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.pillar p {
+		margin: 0;
+		font-size: 0.92rem;
+	}
+
+	@media (max-width: 780px) {
+		.who-we-are-inner {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.brands {
+		background: var(--color-bg-alt);
+		border-top: 1px solid var(--color-border);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.brand-list {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.25rem;
+		margin: 1.5rem 0 0;
+		padding: 0;
+	}
+
+	.brand-list li {
+		font-weight: 600;
+		font-size: 0.95rem;
+		color: var(--color-text-muted);
 	}
 
 	.hiring {
