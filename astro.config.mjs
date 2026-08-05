@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import storyblok from '@storyblok/astro';
+import { storyblok } from '@storyblok/astro';
 import { loadEnv } from 'vite';
 
 const { STORYBLOK_TOKEN } = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), '');
