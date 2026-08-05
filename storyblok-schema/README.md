@@ -7,20 +7,35 @@
 - **elite-conquest-section** — `heading` (text), `body` (richtext) — Elite Conquest product copy
 - **job-listing** — `title`, `location`, `employment_type`, `description` (richtext), `apply_url` — placeholder in case hiring content is needed later
 
-## Pushing to Storyblok
+## 1. Create a space
 
-Requires the [Storyblok CLI](https://github.com/storyblok/storyblok-cli) and a management OAuth token.
+The Storyblok CLI cannot create spaces — do this once in the dashboard:
+
+1. Go to [app.storyblok.com](https://app.storyblok.com) → **New space**.
+2. In **Settings → API Keys**, note the **Space ID** and copy an access token (a **Preview** token for local dev, since it can read draft content; use the **Public** token in production).
+3. Put the token in `.env` at the project root: `STORYBLOK_TOKEN=<token>`.
+
+## 2. Push these content types into the space
+
+Requires the [Storyblok CLI](https://github.com/storyblok/storyblok-cli) (`npx storyblok@latest ...`, v4+). Command syntax below matches that version — it changed from older `push-components`/`pull-components` docs you may find online.
 
 ```bash
 npx storyblok login
-npx storyblok push-components storyblok-schema/components.json --space <your-space-id>
+
+# Stage the schema where the CLI expects it (path is <base>/components/<space-id>/*.json)
+mkdir -p .storyblok/components/<SPACE_ID>
+cp storyblok-schema/components.json .storyblok/components/<SPACE_ID>/components.json
+
+npx storyblok components push --space <SPACE_ID>
 ```
 
-## Expected stories
+`.storyblok/` is CLI staging data (gitignored) — re-copy the file there any time you want to re-push after editing `storyblok-schema/components.json`.
 
-Create these stories once components exist:
+## 3. Create the expected stories
 
-- `auto-insights` (type: `page`) — pull into `src/pages/auto-insights.astro`
+Once the components exist in the space, create these stories:
+
+- `auto-insights` (type: `page`) — pulled into `src/pages/auto-insights.astro`
 - `elite-conquest` (type: `page`) — pulled into `src/pages/elite-conquest.astro`
 - `jobs/*` (type: `job-listing`) — surfaced as a small "We're hiring" section on `src/pages/about.astro` when any exist
 
