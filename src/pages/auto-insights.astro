@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getStory } from '../lib/storyblok';
 
 const story = await getStory('auto-insights');
+const heroSubheading = story?.content?.hero_subheading;
 ---
 
 <BaseLayout
@@ -14,7 +15,13 @@ const story = await getStory('auto-insights');
 		<div class="section-inner hero-inner">
 			<p class="eyebrow">Flagship Product</p>
 			<h1>Auto Insights</h1>
-			<p class="hero-sub placeholder-copy">[AUTO INSIGHTS HERO COPY PENDING]</p>
+			{
+				heroSubheading ? (
+					<p class="hero-sub">{heroSubheading}</p>
+				) : (
+					<p class="hero-sub placeholder-copy">[AUTO INSIGHTS HERO COPY PENDING — managed in Storyblok]</p>
+				)
+			}
 			<a class="btn btn-primary" href="/contact">Book a Demo</a>
 		</div>
 	</section>

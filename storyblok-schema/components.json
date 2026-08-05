@@ -5,6 +5,10 @@
 		"is_root": true,
 		"is_nestable": false,
 		"schema": {
+			"hero_subheading": {
+				"type": "textarea",
+				"display_name": "Hero subheading"
+			},
 			"body": {
 				"type": "bloks",
 				"display_name": "Body",
