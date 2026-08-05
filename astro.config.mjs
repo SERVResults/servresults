@@ -18,7 +18,7 @@ export default defineConfig({
 				'job-listing': 'storyblok/JobListing',
 			},
 			apiOptions: {
-				region: 'us',
+				region: 'eu',
 			},
 			enableFallbackComponent: true,
 		}),
