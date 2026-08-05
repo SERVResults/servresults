@@ -1,6 +1,6 @@
 :root {
-	/* Placeholder brand palette — dark navy/charcoal + one accent color.
-	   Swap once client provides brand colors/fonts. */
+	/* Palette derived from the SERV Results logo (black background, blue
+	   accent bar) — refine once the client provides logo files/brand guide. */
 	--color-bg: #ffffff;
 	--color-bg-alt: #f6f7f9;
 	--color-text: #10151f;
@@ -8,6 +8,11 @@
 	--color-border: #e4e7eb;
 	--color-accent: #2f6fed;
 	--color-accent-contrast: #ffffff;
+
+	--color-dark: #0a0a0f;
+	--color-on-dark: #f5f6f8;
+	--color-on-dark-muted: rgb(245 246 248 / 72%);
+	--color-on-dark-border: rgb(245 246 248 / 24%);
 
 	--font-heading: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 	--font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -114,6 +119,16 @@ svg {
 
 .btn-secondary:hover {
 	border-color: var(--color-text);
+}
+
+.btn-secondary-on-dark {
+	background: transparent;
+	color: var(--color-on-dark);
+	border-color: var(--color-on-dark-border);
+}
+
+.btn-secondary-on-dark:hover {
+	border-color: var(--color-on-dark);
 }
 
 .placeholder-copy {

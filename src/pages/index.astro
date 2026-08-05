@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<p class="hero-sub">Turn anonymous website visitors into high-closing leads.</p>
 			<div class="hero-actions">
 				<a class="btn btn-primary" href="/contact">Book a Demo</a>
-				<a class="btn btn-secondary" href="/auto-insights">Explore Auto Insights</a>
+				<a class="btn btn-secondary-on-dark" href="/auto-insights">Explore Auto Insights</a>
 			</div>
 		</div>
 	</section>
@@ -77,8 +77,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
 	.hero {
-		background: var(--color-bg-alt);
-		border-bottom: 1px solid var(--color-border);
+		background: var(--color-dark);
+		color: var(--color-on-dark);
 	}
 
 	.hero-inner {
@@ -89,12 +89,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.hero h1 {
 		font-size: clamp(2.25rem, 5vw, 3.5rem);
+		color: var(--color-on-dark);
 	}
 
 	.hero-sub {
 		font-size: 1.1rem;
 		max-width: 56ch;
 		margin: 0 auto 2rem;
+		color: var(--color-on-dark-muted);
 	}
 
 	.hero-actions {

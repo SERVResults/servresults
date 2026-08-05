@@ -14,6 +14,8 @@ export interface ContactFormResult {
  * Single entry point for sending the contact/demo form. Swap the
  * implementation here when the email service is decided (Resend, Formspree,
  * or EmailJS) — nothing else in the form needs to change.
+ *
+ * Scope: internal notification only, no auto-reply to the submitter.
  */
 export async function submitContactForm(payload: ContactFormPayload): Promise<ContactFormResult> {
 	// TODO: replace with the chosen provider (Resend, Formspree, or EmailJS).

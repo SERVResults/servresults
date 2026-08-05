@@ -10,7 +10,7 @@ const bodySections = story?.content?.body ?? [];
 
 <BaseLayout
 	title="Auto Insights"
-	description="Auto Insights unifies dealership customer data, precision audience targeting, and email & direct mail into one platform."
+	description="Auto Insights de-anonymizes dealership website traffic and converts it into high-closing leads with targeted email engagement."
 >
 	<section class="section hero">
 		<div class="section-inner hero-inner">
@@ -62,8 +62,8 @@ const bodySections = story?.content?.body ?? [];
 
 <style>
 	.hero {
-		background: var(--color-bg-alt);
-		border-bottom: 1px solid var(--color-border);
+		background: var(--color-dark);
+		color: var(--color-on-dark);
 		text-align: center;
 	}
 
@@ -74,11 +74,13 @@ const bodySections = story?.content?.body ?? [];
 
 	.hero h1 {
 		font-size: clamp(2.25rem, 5vw, 3rem);
+		color: var(--color-on-dark);
 	}
 
 	.hero-sub {
 		font-size: 1.1rem;
 		margin-bottom: 2rem;
+		color: var(--color-on-dark-muted);
 	}
 
 	.body-block {
