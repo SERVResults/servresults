@@ -14,11 +14,25 @@
 	--color-on-dark-muted: rgb(245 246 248 / 72%);
 	--color-on-dark-border: rgb(245 246 248 / 24%);
 
-	--font-heading: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	/* Secondary accent — used sparingly for gradients/glows, not as a base color. */
+	--color-accent-2: #22d3ee;
+
+	--font-heading: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
 	--font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
 	--content-max-width: 1120px;
 	--gutter: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
 }
 
 *,
@@ -75,6 +89,26 @@ svg {
 	margin: 0 auto;
 }
 
+.reveal {
+	opacity: 0;
+	transform: translateY(20px);
+	transition:
+		opacity 0.7s ease,
+		transform 0.7s ease;
+}
+
+.reveal.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+.gradient-text {
+	background: linear-gradient(100deg, var(--color-accent), var(--color-accent-2));
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+}
+
 .eyebrow {
 	display: inline-block;
 	font-size: 0.8rem;
@@ -99,7 +133,9 @@ svg {
 	transition:
 		background-color 0.15s ease,
 		border-color 0.15s ease,
-		color 0.15s ease;
+		color 0.15s ease,
+		transform 0.15s ease,
+		box-shadow 0.15s ease;
 }
 
 .btn-primary {
@@ -109,6 +145,8 @@ svg {
 
 .btn-primary:hover {
 	background: color-mix(in srgb, var(--color-accent) 85%, black);
+	transform: translateY(-1px);
+	box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--color-accent) 60%, transparent);
 }
 
 .btn-secondary {

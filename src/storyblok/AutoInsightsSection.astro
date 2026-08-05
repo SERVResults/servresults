@@ -23,5 +23,17 @@ const html = blok.body ? renderRichText(blok.body) : '';
 <style>
 	.auto-insights-section {
 		margin-bottom: 2rem;
+		padding: 1.75rem 2rem;
+		border: 1px solid var(--color-border);
+		border-left: 3px solid var(--color-accent);
+		border-radius: 12px;
+	}
+
+	.auto-insights-section:last-child {
+		margin-bottom: 0;
+	}
+
+	.auto-insights-section h2 {
+		font-size: 1.3rem;
 	}
 </style>

@@ -13,6 +13,7 @@ const bodySections = story?.content?.body ?? [];
 	description="Auto Insights de-anonymizes dealership website traffic and converts it into high-closing leads with targeted email engagement."
 >
 	<section class="section hero">
+		<div class="hero-glow" aria-hidden="true"></div>
 		<div class="section-inner hero-inner">
 			<p class="eyebrow">Flagship Product</p>
 			<h1>Auto Insights</h1>
@@ -28,7 +29,7 @@ const bodySections = story?.content?.body ?? [];
 	</section>
 
 	<section class="section body-copy">
-		<div class="section-inner">
+		<div class="section-inner reveal">
 			{
 				bodySections.length > 0 ? (
 					bodySections.map((blok) => <StoryblokComponent blok={blok} />)
@@ -53,7 +54,7 @@ const bodySections = story?.content?.body ?? [];
 	</section>
 
 	<section class="section cta">
-		<div class="section-inner cta-inner">
+		<div class="section-inner cta-inner reveal">
 			<h2>See Auto Insights on your own data.</h2>
 			<a class="btn btn-primary" href="/contact">Book a Demo</a>
 		</div>
@@ -62,12 +63,37 @@ const bodySections = story?.content?.body ?? [];
 
 <style>
 	.hero {
+		position: relative;
+		overflow: hidden;
 		background: var(--color-dark);
 		color: var(--color-on-dark);
 		text-align: center;
 	}
 
+	.hero-glow {
+		position: absolute;
+		inset: -20%;
+		background: radial-gradient(
+			40% 50% at 50% 40%,
+			color-mix(in srgb, var(--color-accent) 45%, transparent),
+			transparent
+		);
+		filter: blur(60px);
+		animation: drift 18s ease-in-out infinite alternate;
+	}
+
+	@keyframes drift {
+		0% {
+			transform: translate(0, 0) scale(1);
+		}
+		100% {
+			transform: translate(-3%, 4%) scale(1.08);
+		}
+	}
+
 	.hero-inner {
+		position: relative;
+		z-index: 1;
 		max-width: 680px;
 		margin: 0 auto;
 	}
@@ -84,11 +110,19 @@ const bodySections = story?.content?.body ?? [];
 	}
 
 	.body-block {
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
+		padding: 1.75rem 2rem;
+		border: 1px solid var(--color-border);
+		border-left: 3px solid var(--color-accent);
+		border-radius: 12px;
 	}
 
 	.body-block:last-child {
 		margin-bottom: 0;
+	}
+
+	.body-block h2 {
+		font-size: 1.3rem;
 	}
 
 	.cta-inner {

@@ -19,7 +19,7 @@ const jobStories = await getStories('jobs/');
 	</section>
 
 	<section class="section who-we-are">
-		<div class="section-inner who-we-are-inner">
+		<div class="section-inner who-we-are-inner reveal">
 			<div class="experience-card">
 				<p class="experience-number">100+</p>
 				<p class="experience-label">years combined automotive experience</p>
@@ -46,7 +46,7 @@ const jobStories = await getStories('jobs/');
 	</section>
 
 	<section class="section brands">
-		<div class="section-inner">
+		<div class="section-inner reveal">
 			<p class="eyebrow">Who We Work With</p>
 			<!-- Brand names only for now — swap in licensed OEM logo assets (SVG/PNG) from the client once cleared for use. -->
 			<ul class="brand-list">
@@ -64,7 +64,7 @@ const jobStories = await getStories('jobs/');
 	{
 		jobStories.length > 0 && (
 			<section class="section hiring">
-				<div class="section-inner">
+				<div class="section-inner reveal">
 					<h2>We're hiring</h2>
 					<div class="job-list">
 						{jobStories.map((job) => (
@@ -138,6 +138,16 @@ const jobStories = await getStories('jobs/');
 		padding: 1.5rem;
 		border: 1px solid var(--color-border);
 		border-radius: 12px;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.pillar:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 24px -16px rgb(0 0 0 / 20%);
+		border-color: var(--color-accent-2);
 	}
 
 	.pillar h3 {

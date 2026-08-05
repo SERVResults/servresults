@@ -28,7 +28,7 @@ const bodySections = story?.content?.body ?? [];
 	</section>
 
 	<section class="section body-copy">
-		<div class="section-inner">
+		<div class="section-inner reveal">
 			{
 				bodySections.length > 0 ? (
 					bodySections.map((blok) => <StoryblokComponent blok={blok} />)
@@ -72,5 +72,12 @@ const bodySections = story?.content?.body ?? [];
 		font-weight: 600;
 		color: var(--color-accent);
 		text-decoration: none;
+	}
+
+	.body-block {
+		padding: 1.75rem 2rem;
+		border: 1px solid var(--color-border);
+		border-left: 3px solid var(--color-accent-2);
+		border-radius: 12px;
 	}
 </style>

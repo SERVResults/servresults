@@ -4,9 +4,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Home" description="SERV Results helps car dealerships find, convert, and retain more customers with data-driven marketing.">
 	<section class="hero section">
+		<div class="hero-glow" aria-hidden="true"></div>
 		<div class="section-inner hero-inner">
 			<p class="eyebrow">Auto Insights</p>
-			<h1>Increase sales opportunities by 30% from existing dealer website traffic.</h1>
+			<h1>Increase sales opportunities by <span class="gradient-text">30%</span> from existing dealer website traffic.</h1>
 			<p class="hero-sub">Turn anonymous website visitors into high-closing leads.</p>
 			<div class="hero-actions">
 				<a class="btn btn-primary" href="/contact">Book a Demo</a>
@@ -16,19 +17,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	</section>
 
 	<section class="section proof">
-		<div class="section-inner proof-inner">
+		<div class="section-inner proof-inner reveal">
 			<p class="eyebrow">Guaranteed Results</p>
 			<div class="stat-grid">
 				<div class="stat">
-					<p class="stat-number">30%+</p>
+					<p class="stat-number" data-value="30" data-suffix="%+">0%+</p>
 					<p class="stat-label">Minimum increase in 1st-party leads</p>
 				</div>
 				<div class="stat">
-					<p class="stat-number">15.3%</p>
+					<p class="stat-number" data-value="15.3" data-suffix="%">0%</p>
 					<p class="stat-label">Average close rate</p>
 				</div>
 				<div class="stat">
-					<p class="stat-number">~50%</p>
+					<p class="stat-number" data-value="50" data-prefix="~" data-suffix="%">~0%</p>
 					<p class="stat-label">Engagement of daily website visitors</p>
 				</div>
 			</div>
@@ -37,18 +38,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	<section class="section value-props">
 		<div class="section-inner">
-			<h2>Turn anonymous traffic into closed deals</h2>
+			<h2 class="reveal">Turn anonymous traffic into closed deals</h2>
 			<div class="value-grid">
-				<div class="value-card">
+				<div class="value-card reveal">
 					<h3>De-anonymize 50% of daily website traffic</h3>
 				</div>
-				<div class="value-card">
+				<div class="value-card reveal">
 					<h3>Engage each visitor with 3+ emails</h3>
 				</div>
-				<div class="value-card">
+				<div class="value-card reveal">
 					<h3>On-site offer engine to convert down-funnel shoppers</h3>
 				</div>
-				<div class="value-card">
+				<div class="value-card reveal">
 					<h3>Maximize website conversion &mdash; 30% increase in dealership website leads</h3>
 				</div>
 			</div>
@@ -56,7 +57,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	</section>
 
 	<section class="section secondary-product">
-		<div class="section-inner secondary-inner">
+		<div class="section-inner secondary-inner reveal">
 			<div class="secondary-text">
 				<p class="eyebrow">Also from SERV Results</p>
 				<h2>Elite Conquest</h2>
@@ -67,7 +68,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	</section>
 
 	<section class="section cta">
-		<div class="section-inner cta-inner">
+		<div class="section-inner cta-inner reveal">
 			<h2>See Auto Insights on your own data.</h2>
 			<p>Book a short demo and we'll walk through what it looks like for your dealership.</p>
 			<a class="btn btn-primary" href="/contact">Book a Demo</a>
@@ -75,16 +76,93 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	</section>
 </BaseLayout>
 
+<script>
+	function animateStat(el: Element) {
+		const target = parseFloat(el.getAttribute('data-value') ?? '0');
+		const prefix = el.getAttribute('data-prefix') ?? '';
+		const suffix = el.getAttribute('data-suffix') ?? '';
+		const isDecimal = (el.getAttribute('data-value') ?? '').includes('.');
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		if (prefersReducedMotion) {
+			el.textContent = `${prefix}${target}${suffix}`;
+			return;
+		}
+
+		const duration = 1200;
+		const start = performance.now();
+
+		function tick(now: number) {
+			const progress = Math.min((now - start) / duration, 1);
+			const eased = 1 - Math.pow(1 - progress, 3);
+			const current = target * eased;
+			el.textContent = `${prefix}${isDecimal ? current.toFixed(1) : Math.round(current)}${suffix}`;
+			if (progress < 1) requestAnimationFrame(tick);
+		}
+
+		requestAnimationFrame(tick);
+	}
+
+	const statObserver = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) {
+					animateStat(entry.target);
+					statObserver.unobserve(entry.target);
+				}
+			}
+		},
+		{ threshold: 0.4 },
+	);
+
+	document.querySelectorAll('.stat-number').forEach((el) => statObserver.observe(el));
+</script>
+
 <style>
 	.hero {
+		position: relative;
+		overflow: hidden;
 		background: var(--color-dark);
 		color: var(--color-on-dark);
 	}
 
+	.hero-glow {
+		position: absolute;
+		inset: -20%;
+		background:
+			radial-gradient(38% 45% at 22% 30%, color-mix(in srgb, var(--color-accent) 55%, transparent), transparent),
+			radial-gradient(32% 40% at 78% 65%, color-mix(in srgb, var(--color-accent-2) 45%, transparent), transparent);
+		filter: blur(60px);
+		animation: drift 18s ease-in-out infinite alternate;
+	}
+
+	@keyframes drift {
+		0% {
+			transform: translate(0, 0) scale(1);
+		}
+		100% {
+			transform: translate(3%, -4%) scale(1.08);
+		}
+	}
+
 	.hero-inner {
+		position: relative;
+		z-index: 1;
 		max-width: 760px;
 		text-align: center;
 		margin: 0 auto;
+		animation: rise 0.8s ease both;
+	}
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(16px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
 	}
 
 	.hero h1 {
@@ -118,8 +196,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	.stat-number {
 		font-family: var(--font-heading);
-		font-size: 2.5rem;
+		font-size: 2.75rem;
 		font-weight: 700;
+		font-variant-numeric: tabular-nums;
 		color: var(--color-accent);
 		margin: 0;
 	}
@@ -153,6 +232,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		padding: 1.75rem;
 		border: 1px solid var(--color-border);
 		border-radius: 12px;
+		border-left: 3px solid var(--color-accent);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.value-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 24px -16px rgb(0 0 0 / 20%);
+		border-left-color: var(--color-accent-2);
 	}
 
 	.value-card h3 {
