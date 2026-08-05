@@ -1,0 +1,127 @@
+:root {
+	/* Placeholder brand palette — dark navy/charcoal + one accent color.
+	   Swap once client provides brand colors/fonts. */
+	--color-bg: #ffffff;
+	--color-bg-alt: #f6f7f9;
+	--color-text: #10151f;
+	--color-text-muted: #5a6472;
+	--color-border: #e4e7eb;
+	--color-accent: #2f6fed;
+	--color-accent-contrast: #ffffff;
+
+	--font-heading: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+	--content-max-width: 1120px;
+	--gutter: 1.5rem;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-body);
+	color: var(--color-text);
+	background: var(--color-bg);
+	line-height: 1.55;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-heading);
+	line-height: 1.15;
+	letter-spacing: -0.015em;
+	margin: 0 0 1rem;
+}
+
+p {
+	margin: 0 0 1rem;
+	color: var(--color-text-muted);
+}
+
+a {
+	color: inherit;
+}
+
+img,
+svg {
+	max-width: 100%;
+	display: block;
+}
+
+.section {
+	padding: 5rem var(--gutter);
+}
+
+.section-inner {
+	max-width: var(--content-max-width);
+	margin: 0 auto;
+}
+
+.eyebrow {
+	display: inline-block;
+	font-size: 0.8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--color-accent);
+	margin-bottom: 0.75rem;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.75rem 1.5rem;
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 0.95rem;
+	text-decoration: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.btn-primary {
+	background: var(--color-accent);
+	color: var(--color-accent-contrast);
+}
+
+.btn-primary:hover {
+	background: color-mix(in srgb, var(--color-accent) 85%, black);
+}
+
+.btn-secondary {
+	background: transparent;
+	color: var(--color-text);
+	border-color: var(--color-border);
+}
+
+.btn-secondary:hover {
+	border-color: var(--color-text);
+}
+
+.placeholder-copy {
+	background: #fff7e6;
+	border: 1px dashed #e0a400;
+	color: #8a6300;
+	padding: 0.15rem 0.5rem;
+	border-radius: 4px;
+	font-size: 0.9em;
+	font-style: italic;
+}

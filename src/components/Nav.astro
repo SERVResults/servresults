@@ -1,0 +1,161 @@
+---
+const links = [
+	{ href: '/auto-insights', label: 'Auto Insights' },
+	{ href: '/elite-conquest', label: 'Elite Conquest' },
+	{ href: '/about', label: 'About' },
+	{ href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="site-header">
+	<div class="wrap">
+		<a class="logo" href="/">SERV Results</a>
+		<button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" id="nav-toggle">
+			<span></span>
+		</button>
+		<nav id="primary-nav" aria-label="Primary">
+			<ul>
+				{
+					links.map((link) => (
+						<li>
+							<a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<a class="btn btn-primary nav-cta" href="/contact">Book a Demo</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: var(--color-bg);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.wrap {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+		padding: 1rem var(--gutter);
+	}
+
+	.logo {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		font-size: 1.25rem;
+		color: var(--color-text);
+		text-decoration: none;
+		letter-spacing: -0.01em;
+	}
+
+	nav {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+	}
+
+	nav ul {
+		display: flex;
+		list-style: none;
+		gap: 1.75rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	nav a {
+		color: var(--color-text-muted);
+		text-decoration: none;
+		font-size: 0.95rem;
+		font-weight: 500;
+		transition: color 0.15s ease;
+	}
+
+	nav a:hover,
+	nav a[aria-current='page'] {
+		color: var(--color-text);
+	}
+
+	.nav-cta {
+		white-space: nowrap;
+	}
+
+	.nav-toggle {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+
+	.nav-toggle span,
+	.nav-toggle span::before,
+	.nav-toggle span::after {
+		content: '';
+		display: block;
+		width: 22px;
+		height: 2px;
+		background: var(--color-text);
+		position: relative;
+		transition: transform 0.15s ease;
+	}
+
+	.nav-toggle span::before {
+		position: absolute;
+		top: -7px;
+	}
+
+	.nav-toggle span::after {
+		position: absolute;
+		top: 7px;
+	}
+
+	@media (max-width: 720px) {
+		.nav-toggle {
+			display: block;
+		}
+
+		nav {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			align-items: stretch;
+			background: var(--color-bg);
+			border-bottom: 1px solid var(--color-border);
+			padding: 1.5rem var(--gutter);
+			gap: 1.5rem;
+			display: none;
+		}
+
+		nav.is-open {
+			display: flex;
+		}
+
+		nav ul {
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+	}
+</style>
+
+<script>
+	const toggle = document.getElementById('nav-toggle');
+	const nav = document.getElementById('primary-nav');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = nav?.classList.toggle('is-open');
+		toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+	});
+</script>

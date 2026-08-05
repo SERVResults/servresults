@@ -1,0 +1,63 @@
+---
+import { StoryblokComponent } from '@storyblok/astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getStory } from '../lib/storyblok';
+
+const story = await getStory('elite-conquest');
+---
+
+<BaseLayout title="Elite Conquest" description="Elite Conquest, from the team behind Auto Insights.">
+	<section class="section hero">
+		<div class="section-inner hero-inner">
+			<p class="eyebrow">From the team behind Auto Insights</p>
+			<h1>Elite Conquest</h1>
+			<p class="hero-sub placeholder-copy">[ELITE CONQUEST HERO COPY PENDING]</p>
+			<div class="hero-actions">
+				<a class="btn btn-secondary" href="/contact">Talk to Sales</a>
+				<a class="btn-link" href="/auto-insights">See Auto Insights, our flagship platform &rarr;</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section body-copy">
+		<div class="section-inner">
+			{
+				story ? (
+					<StoryblokComponent blok={story.content} />
+				) : (
+					<div class="body-block">
+						<p class="placeholder-copy">[ELITE CONQUEST BODY COPY PENDING — managed in Storyblok]</p>
+					</div>
+				)
+			}
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero {
+		background: var(--color-bg-alt);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.hero-inner {
+		max-width: 640px;
+	}
+
+	.hero h1 {
+		font-size: clamp(2rem, 4vw, 2.5rem);
+	}
+
+	.hero-actions {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.btn-link {
+		font-weight: 600;
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+</style>

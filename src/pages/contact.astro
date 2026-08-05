@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+
+<BaseLayout title="Contact" description="Book a demo or get in touch with SERV Results.">
+	<section class="section">
+		<div class="section-inner contact-inner">
+			<div class="contact-copy">
+				<p class="eyebrow">Contact</p>
+				<h1>Book a demo</h1>
+				<p class="placeholder-copy">[CONTACT PAGE INTRO COPY PENDING]</p>
+			</div>
+
+			<ContactForm />
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.contact-inner {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.contact-copy h1 {
+		font-size: clamp(2rem, 4vw, 2.5rem);
+	}
+
+	@media (max-width: 780px) {
+		.contact-inner {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+	}
+</style>

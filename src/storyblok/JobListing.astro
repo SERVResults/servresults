@@ -1,0 +1,47 @@
+---
+import { storyblokEditable, renderRichText } from '@storyblok/astro';
+
+interface Props {
+	blok: {
+		_uid: string;
+		component: string;
+		title?: string;
+		location?: string;
+		employment_type?: string;
+		description?: Record<string, unknown>;
+		apply_url?: string;
+		[key: string]: unknown;
+	};
+}
+
+const { blok } = Astro.props;
+const html = blok.description ? renderRichText(blok.description) : '';
+---
+
+<article class="job-listing" {...storyblokEditable(blok)}>
+	<h3>{blok.title ?? '[JOB TITLE PENDING]'}</h3>
+	<p class="job-meta">
+		{blok.location ?? '[LOCATION PENDING]'} &middot; {blok.employment_type ?? '[EMPLOYMENT TYPE PENDING]'}
+	</p>
+	{html ? <Fragment set:html={html} /> : <p class="placeholder-copy">[JOB DESCRIPTION COPY PENDING]</p>}
+	{blok.apply_url && (
+		<a class="btn btn-secondary" href={blok.apply_url}>
+			Apply
+		</a>
+	)}
+</article>
+
+<style>
+	.job-listing {
+		padding: 1.5rem;
+		border: 1px solid var(--color-border);
+		border-radius: 12px;
+		margin-bottom: 1.5rem;
+	}
+
+	.job-meta {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+</style>

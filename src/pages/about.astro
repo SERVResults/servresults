@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getStories } from '../lib/storyblok';
+
+const jobStories = await getStories('jobs/');
+---
+
+<BaseLayout title="About" description="SERV Results builds data-driven marketing software for car dealerships.">
+	<section class="section hero">
+		<div class="section-inner hero-inner">
+			<p class="eyebrow">About SERV Results</p>
+			<h1>Marketing software built for one industry: automotive.</h1>
+			<p class="placeholder-copy">[ABOUT COMPANY OVERVIEW COPY PENDING]</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="section-inner">
+			<p class="placeholder-copy">[ABOUT — MISSION / WHY WE EXIST COPY PENDING]</p>
+		</div>
+	</section>
+
+	{
+		jobStories.length > 0 && (
+			<section class="section hiring">
+				<div class="section-inner">
+					<h2>We're hiring</h2>
+					<div class="job-list">
+						{jobStories.map((job) => (
+							<article class="job-summary">
+								<h3>{job.content.title ?? job.name}</h3>
+								{job.content.location && <p class="job-meta">{job.content.location}</p>}
+							</article>
+						))}
+					</div>
+					<a class="btn btn-secondary" href="/contact">Get in touch about openings</a>
+				</div>
+			</section>
+		)
+	}
+</BaseLayout>
+
+<style>
+	.hero {
+		background: var(--color-bg-alt);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.hero-inner {
+		max-width: 680px;
+	}
+
+	.hero h1 {
+		font-size: clamp(2rem, 4vw, 2.75rem);
+	}
+
+	.hiring {
+		border-top: 1px solid var(--color-border);
+	}
+
+	.job-list {
+		display: grid;
+		gap: 1rem;
+		margin: 1.5rem 0 2rem;
+	}
+
+	.job-summary {
+		padding: 1rem 1.5rem;
+		border: 1px solid var(--color-border);
+		border-radius: 8px;
+	}
+
+	.job-summary h3 {
+		margin: 0;
+		font-size: 1rem;
+	}
+
+	.job-meta {
+		margin: 0.25rem 0 0;
+		font-size: 0.85rem;
+	}
+</style>

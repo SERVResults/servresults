@@ -1,0 +1,117 @@
+---
+---
+
+<form id="contact-form" class="contact-form" novalidate>
+	<div class="field">
+		<label for="name">Name</label>
+		<input id="name" name="name" type="text" autocomplete="name" required />
+	</div>
+
+	<div class="field">
+		<label for="email">Email</label>
+		<input id="email" name="email" type="email" autocomplete="email" required />
+	</div>
+
+	<div class="field">
+		<label for="dealershipName">Dealership Name</label>
+		<input id="dealershipName" name="dealershipName" type="text" autocomplete="organization" required />
+	</div>
+
+	<div class="field">
+		<label for="message">Message</label>
+		<textarea id="message" name="message" rows="5" required></textarea>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Send</button>
+
+	<p id="contact-form-status" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		max-width: 480px;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	label {
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+
+	input,
+	textarea {
+		font: inherit;
+		padding: 0.65rem 0.85rem;
+		border: 1px solid var(--color-border);
+		border-radius: 8px;
+		color: var(--color-text);
+		background: var(--color-bg);
+	}
+
+	input:focus,
+	textarea:focus {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 1px;
+	}
+
+	button {
+		align-self: flex-start;
+	}
+
+	#contact-form-status {
+		font-size: 0.9rem;
+		margin: 0;
+	}
+
+	#contact-form-status[data-state='success'] {
+		color: #1a7f37;
+	}
+
+	#contact-form-status[data-state='error'] {
+		color: #c0342c;
+	}
+</style>
+
+<script>
+	import { submitContactForm } from '../lib/submitContactForm';
+
+	const form = document.getElementById('contact-form') as HTMLFormElement | null;
+	const status = document.getElementById('contact-form-status');
+
+	form?.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		if (!status) return;
+
+		const data = new FormData(form);
+		const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+		submitButton?.setAttribute('disabled', 'true');
+		status.dataset.state = '';
+		status.textContent = 'Sending...';
+
+		const result = await submitContactForm({
+			name: String(data.get('name') ?? ''),
+			email: String(data.get('email') ?? ''),
+			dealershipName: String(data.get('dealershipName') ?? ''),
+			message: String(data.get('message') ?? ''),
+		});
+
+		submitButton?.removeAttribute('disabled');
+
+		if (result.ok) {
+			status.dataset.state = 'success';
+			status.textContent = "Thanks — we'll be in touch shortly.";
+			form.reset();
+		} else {
+			status.dataset.state = 'error';
+			status.textContent = result.error ?? 'Something went wrong. Please try again.';
+		}
+	});
+</script>

@@ -1,0 +1,27 @@
+---
+import { storyblokEditable, renderRichText } from '@storyblok/astro';
+
+interface Props {
+	blok: {
+		_uid: string;
+		component: string;
+		heading?: string;
+		body?: Record<string, unknown>;
+		[key: string]: unknown;
+	};
+}
+
+const { blok } = Astro.props;
+const html = blok.body ? renderRichText(blok.body) : '';
+---
+
+<div class="elite-conquest-section" {...storyblokEditable(blok)}>
+	{blok.heading && <h2>{blok.heading}</h2>}
+	{html ? <Fragment set:html={html} /> : <p class="placeholder-copy">[ELITE CONQUEST SECTION COPY PENDING]</p>}
+</div>
+
+<style>
+	.elite-conquest-section {
+		margin-bottom: 2rem;
+	}
+</style>

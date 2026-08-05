@@ -1,0 +1,87 @@
+---
+import { StoryblokComponent } from '@storyblok/astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getStory } from '../lib/storyblok';
+
+const story = await getStory('auto-insights');
+---
+
+<BaseLayout
+	title="Auto Insights"
+	description="Auto Insights unifies dealership customer data, precision audience targeting, and email & direct mail into one platform."
+>
+	<section class="section hero">
+		<div class="section-inner hero-inner">
+			<p class="eyebrow">Flagship Product</p>
+			<h1>Auto Insights</h1>
+			<p class="hero-sub placeholder-copy">[AUTO INSIGHTS HERO COPY PENDING]</p>
+			<a class="btn btn-primary" href="/contact">Book a Demo</a>
+		</div>
+	</section>
+
+	<section class="section body-copy">
+		<div class="section-inner">
+			{
+				story ? (
+					<StoryblokComponent blok={story.content} />
+				) : (
+					<>
+						<div class="body-block">
+							<h2>Unified dealership data</h2>
+							<p class="placeholder-copy">[AUTO INSIGHTS DATA CAPABILITIES COPY PENDING — managed in Storyblok]</p>
+						</div>
+						<div class="body-block">
+							<h2>Precision audience targeting</h2>
+							<p class="placeholder-copy">[AUTO INSIGHTS TARGETING COPY PENDING — managed in Storyblok]</p>
+						</div>
+						<div class="body-block">
+							<h2>Email &amp; direct mail, connected</h2>
+							<p class="placeholder-copy">[AUTO INSIGHTS EMAIL/MAIL COPY PENDING — managed in Storyblok]</p>
+						</div>
+					</>
+				)
+			}
+		</div>
+	</section>
+
+	<section class="section cta">
+		<div class="section-inner cta-inner">
+			<h2>See Auto Insights on your own data.</h2>
+			<a class="btn btn-primary" href="/contact">Book a Demo</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero {
+		background: var(--color-bg-alt);
+		border-bottom: 1px solid var(--color-border);
+		text-align: center;
+	}
+
+	.hero-inner {
+		max-width: 680px;
+		margin: 0 auto;
+	}
+
+	.hero h1 {
+		font-size: clamp(2.25rem, 5vw, 3rem);
+	}
+
+	.hero-sub {
+		font-size: 1.1rem;
+		margin-bottom: 2rem;
+	}
+
+	.body-block {
+		margin-bottom: 3rem;
+	}
+
+	.body-block:last-child {
+		margin-bottom: 0;
+	}
+
+	.cta-inner {
+		text-align: center;
+	}
+</style>

@@ -1,0 +1,81 @@
+[
+	{
+		"name": "page",
+		"display_name": "Page",
+		"is_root": true,
+		"is_nestable": false,
+		"schema": {
+			"body": {
+				"type": "bloks",
+				"display_name": "Body",
+				"restrict_components": true,
+				"component_whitelist": ["auto-insights-section", "elite-conquest-section"]
+			}
+		}
+	},
+	{
+		"name": "auto-insights-section",
+		"display_name": "Auto Insights Section",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"heading": {
+				"type": "text",
+				"display_name": "Heading"
+			},
+			"body": {
+				"type": "richtext",
+				"display_name": "Body copy"
+			}
+		}
+	},
+	{
+		"name": "elite-conquest-section",
+		"display_name": "Elite Conquest Section",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"heading": {
+				"type": "text",
+				"display_name": "Heading"
+			},
+			"body": {
+				"type": "richtext",
+				"display_name": "Body copy"
+			}
+		}
+	},
+	{
+		"name": "job-listing",
+		"display_name": "Job Listing",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"title": {
+				"type": "text",
+				"display_name": "Job title"
+			},
+			"location": {
+				"type": "text",
+				"display_name": "Location"
+			},
+			"employment_type": {
+				"type": "option",
+				"display_name": "Employment type",
+				"options": [
+					{ "name": "Full-time", "value": "full_time" },
+					{ "name": "Part-time", "value": "part_time" },
+					{ "name": "Contract", "value": "contract" }
+				]
+			},
+			"description": {
+				"type": "richtext",
+				"display_name": "Description"
+			},
+			"apply_url": {
+				"type": "text",
+				"display_name": "Apply URL"
+			}
+		}
+	}
+]
