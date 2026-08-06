@@ -1,103 +1,311 @@
 ---
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroField from '../components/HeroField.astro';
 import { getStory } from '../lib/storyblok';
 
 const story = await getStory('elite-conquest');
-const heroSubheading = story?.content?.hero_subheading;
+const heroSubheading =
+	story?.content?.hero_subheading ??
+	"Most shoppers don't raise their hand before they're ready to buy. Elite Conquest re-engages them with branded email while the buying signal is still fresh.";
 const bodySections = story?.content?.body ?? [];
+
+const fallbackSteps = [
+	{
+		heading: 'Identify',
+		body: 'Find sales prospects who visited your website and left without converting.',
+	},
+	{
+		heading: 'Expand',
+		body: "Add in-market consumers from the local area who match your dealership's conquest strategy.",
+	},
+	{
+		heading: 'Engage',
+		body: 'Deploy branded email that brings shoppers back to inventory, offers, and next steps.',
+	},
+	{
+		heading: 'Report',
+		body: "See exactly who's in the audience, how they're engaging, and what it's driving.",
+	},
+];
+
+const audiencePools = [
+	{
+		name: 'Website Exit Audience',
+		body: 'High-intent shoppers who visited your website but left before submitting a lead.',
+	},
+	{
+		name: 'Local In-Market Add-On',
+		body: "Additional in-market prospects in your trade area who show signs they're ready to buy.",
+	},
+];
+
+const programFeatures = [
+	{ name: 'Monthly audience build', body: 'Website exit traffic plus local in-market add-on prospects.' },
+	{ name: 'Two email deployments', body: 'A consistent monthly cadence that keeps you in front of shoppers.' },
+	{
+		name: 'Custom creative',
+		body: 'Dealer-branded messaging aligned to your campaign objective, at no added design cost.',
+	},
+	{ name: 'Monthly reporting', body: 'Audience size, engagement, and next-campaign recommendations.' },
+	{ name: 'Dedicated account manager', body: 'Hands-on support from strategy through execution.' },
+];
 ---
 
 <BaseLayout title="Elite Conquest" description="Elite Conquest, from the team behind Auto Insights.">
-	<section class="page-hero">
-		<div class="wrap page-hero__inner">
-			<p class="eyebrow eyebrow-muted">From the team behind Auto Insights</p>
-			<h1>Elite Conquest</h1>
-			{
-				heroSubheading ? (
-					<p class="hero-sub">{heroSubheading}</p>
-				) : (
-					<p class="hero-sub">Details on this offering are coming soon — get in touch and we'll walk you through it.</p>
-				)
-			}
-			<div class="hero-actions">
-				<a class="btn btn-outline-on-dark" href="/contact">Talk to Sales</a>
-				<a class="text-link-on-dark" href="/auto-insights">See Auto Insights, our flagship platform &rarr;</a>
+	<section class="hero hero--product">
+		<HeroField variant="product" />
+		<div class="wrap hero--product__inner">
+			<p class="eyebrow">Elite Conquest</p>
+			<h1>Identify in-market shoppers who leave without converting</h1>
+			<p class="hero__sub">{heroSubheading}</p>
+			<a class="text-link-on-dark" href="/auto-insights">See Auto Insights, our flagship product &rarr;</a>
+		</div>
+	</section>
+
+	<section class="stats-section">
+		<div class="wrap">
+			<div class="step-rows">
+				{
+					bodySections.length > 0 ? (
+						bodySections.map((blok) => <StoryblokComponent blok={blok} />)
+					) : (
+						fallbackSteps.map((step, i) => (
+							<div class="step-row">
+								<p class="step-row__num">{String(i + 1).padStart(2, '0')}</p>
+								<h3>{step.heading}</h3>
+								<div class="step-row__body">
+									<p>{step.body}</p>
+								</div>
+							</div>
+						))
+					)
+				}
 			</div>
 		</div>
 	</section>
 
-	<section class="body-copy">
+	<section class="audience">
 		<div class="wrap reveal">
-			{
-				bodySections.length > 0 ? (
-					bodySections.map((blok) => <StoryblokComponent blok={blok} />)
-				) : (
-					<div class="body-block">
-						<p>
-							We're finalizing the write-up for Elite Conquest. In the meantime,{' '}
-							<a href="/contact">contact us</a> and we'll walk you through what it offers.
-						</p>
-					</div>
-				)
-			}
+			<p class="eyebrow eyebrow-deep">Audience Strategy</p>
+			<h2>Two audience pools, working together</h2>
+			<p class="audience__intro">Start with the hottest signal, then layer in broader reach.</p>
+			<div class="audience-grid">
+				{
+					audiencePools.map((pool) => (
+						<div class="audience-card">
+							<h3>{pool.name}</h3>
+							<p>{pool.body}</p>
+						</div>
+					))
+				}
+			</div>
+			<p class="audience__note">
+				Targeting can be customized by geography, sales goal, vehicle strategy, and monthly campaign focus.
+			</p>
+		</div>
+	</section>
+
+	<section class="program">
+		<div class="wrap reveal">
+			<p class="eyebrow eyebrow-muted">Program Structure</p>
+			<h2>Simple to launch, built for recurring monthly execution</h2>
+			<div class="program-grid">
+				{
+					programFeatures.map((feature) => (
+						<div class="program-item">
+							<h3>{feature.name}</h3>
+							<p>{feature.body}</p>
+						</div>
+					))
+				}
+			</div>
+			<p class="program__note">Program scope and pricing can be tailored to your dealership's strategy.</p>
+		</div>
+	</section>
+
+	<section class="cta-band">
+		<div class="wrap cta-band__inner">
+			<div>
+				<h3>Ready to turn hidden website traffic into conquest opportunities?</h3>
+				<p>See how Elite Conquest works for your dealership and market.</p>
+			</div>
+			<a class="btn btn-primary" href="/contact">Schedule Demo</a>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	.page-hero {
+	.hero--product {
+		position: relative;
+		overflow: hidden;
 		background: var(--serv-ink);
 		color: var(--serv-off);
-		padding-block: clamp(3.5rem, 6vw, 5rem);
+		padding-block: clamp(3.5rem, 6vw, 5rem) clamp(3.5rem, 6vw, 4.25rem);
 	}
 
-	.page-hero__inner {
-		max-width: 640px;
+	.hero--product__inner {
+		position: relative;
+		z-index: 2;
+		max-width: 720px;
 	}
 
-	.page-hero h1 {
+	.hero--product h1 {
+		font-size: clamp(2rem, 1.05rem + 4.2vw, 3rem);
+		line-height: 1.1;
+		letter-spacing: -0.03em;
 		color: var(--serv-off);
-		font-size: clamp(2rem, 1.3rem + 2vw, 2.5rem);
+		margin: 0;
 	}
 
-	.hero-sub {
-		font-size: 1.05rem;
+	.hero__sub {
+		font-size: clamp(1rem, 0.85rem + 0.5vw, 1.125rem);
+		max-width: 56ch;
 		color: var(--serv-text-muted-on-dark);
-		margin-bottom: 1.5rem;
-	}
-
-	.hero-actions {
-		display: flex;
-		align-items: center;
-		gap: 1.5rem;
-		flex-wrap: wrap;
+		margin: 1.5rem 0 0;
 	}
 
 	.text-link-on-dark {
+		display: inline-block;
+		margin-top: 1.5rem;
 		font-weight: 600;
+		font-size: 0.906rem;
 		color: var(--serv-off);
 		text-decoration: none;
-		font-size: 0.906rem;
 	}
 
 	.text-link-on-dark:hover {
 		text-decoration: underline;
 	}
 
-	.body-copy {
+	.stats-section {
+		background: var(--serv-off);
+		padding-block: clamp(3rem, 4vw, 4rem) 0;
+	}
+
+	.audience {
+		background: #fff;
+		border-top: 1px solid var(--serv-border-on-light);
 		padding-block: clamp(3rem, 4vw, 4rem);
 	}
 
-	.body-block {
-		padding: 1.75rem 2rem;
-		border: 1px solid var(--serv-border-on-light);
-		border-left: 3px solid var(--serv-primary);
+	.audience h2 {
+		font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+		color: var(--serv-ink);
+		margin: 0 0 0.75rem;
 	}
 
-	.body-block a {
-		color: var(--serv-primary-deep);
-		font-weight: 600;
-		text-decoration: underline;
+	.audience__intro {
+		max-width: 60ch;
+		font-size: 1rem;
+		color: var(--serv-text-muted-on-light);
+		margin: 0 0 2rem;
+	}
+
+	.audience-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1px;
+		background: var(--serv-border-on-light-strong);
+		border: 1px solid var(--serv-border-on-light-strong);
+	}
+
+	.audience-card {
+		background: var(--serv-off);
+		padding: 1.75rem;
+	}
+
+	.audience-card h3 {
+		font-size: 1.05rem;
+		color: var(--serv-ink);
+		margin: 0 0 0.5rem;
+	}
+
+	.audience-card p {
+		margin: 0;
+		font-size: 0.92rem;
+	}
+
+	.audience__note {
+		margin: 1.5rem 0 0;
+		font-size: 0.85rem;
+		color: var(--serv-text-faint-on-light);
+	}
+
+	.program {
+		background: var(--serv-off);
+		border-top: 1px solid var(--serv-border-on-light);
+		padding-block: clamp(3rem, 4vw, 4rem);
+	}
+
+	.program h2 {
+		font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+		color: var(--serv-ink);
+		margin: 0 0 1.75rem;
+	}
+
+	.program-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1px;
+		background: var(--serv-border-on-light-strong);
+		border: 1px solid var(--serv-border-on-light-strong);
+	}
+
+	.program-item {
+		background: #fff;
+		padding: 1.5rem;
+		flex: 1 1 260px;
+	}
+
+	.program-item h3 {
+		font-size: 0.97rem;
+		color: var(--serv-ink);
+		margin: 0 0 0.5rem;
+	}
+
+	.program-item p {
+		margin: 0;
+		font-size: 0.88rem;
+	}
+
+	.program__note {
+		margin: 1.5rem 0 0;
+		font-size: 0.85rem;
+		color: var(--serv-text-faint-on-light);
+	}
+
+	@media (max-width: 780px) {
+		.audience-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.cta-band {
+		background: var(--serv-ink);
+		color: var(--serv-off);
+		padding-block: clamp(2.5rem, 4vw, 3.75rem);
+	}
+
+	.cta-band__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 2.5rem;
+		flex-wrap: wrap;
+	}
+
+	.cta-band__inner h3 {
+		color: var(--serv-off);
+		font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+		letter-spacing: -0.02em;
+		margin: 0 0 0.625rem;
+		max-width: 34ch;
+	}
+
+	.cta-band__inner p {
+		color: var(--serv-text-muted-on-dark);
+		margin: 0;
+		font-size: 0.94rem;
 	}
 </style>

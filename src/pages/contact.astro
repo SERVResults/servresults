@@ -1,49 +1,101 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroField from '../components/HeroField.astro';
 import ContactForm from '../components/ContactForm.astro';
 ---
 
 <BaseLayout title="Contact" description="Book a demo or get in touch with SERV Results.">
-	<section class="page-hero">
-		<div class="wrap page-hero__inner">
-			<p class="eyebrow">Contact</p>
-			<h1>Schedule a demo</h1>
-			<p>
-				Tell us a bit about your dealership and we'll show you what Auto Insights looks like on your own
-				website traffic — no canned demo, just your data.
-			</p>
-		</div>
-	</section>
+	<section class="contact-hero">
+		<HeroField variant="product" />
+		<div class="wrap contact-hero__grid">
+			<div class="contact-copy">
+				<p class="eyebrow">Contact</p>
+				<h1>Schedule a demo</h1>
+				<p class="contact-copy__sub">
+					Tell us a bit about your dealership and we'll show you what Auto Insights looks like on your own
+					website traffic — no canned demo, just your data.
+				</p>
+				<ul class="contact-points">
+					<li>No canned demo — we use your own site traffic</li>
+					<li>20 minutes, start to finish</li>
+					<li>Walk away with real numbers for your dealership</li>
+				</ul>
+			</div>
 
-	<section class="contact-section">
-		<div class="wrap">
-			<ContactForm />
+			<div class="contact-form-card">
+				<ContactForm />
+			</div>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	.page-hero {
+	.contact-hero {
+		position: relative;
+		overflow: hidden;
 		background: var(--serv-ink);
 		color: var(--serv-off);
 		padding-block: clamp(3.5rem, 6vw, 5rem);
 	}
 
-	.page-hero__inner {
-		max-width: 640px;
+	.contact-hero__grid {
+		position: relative;
+		z-index: 2;
+		display: grid;
+		grid-template-columns: 1fr 1.05fr;
+		gap: 4rem;
+		align-items: start;
 	}
 
-	.page-hero h1 {
+	.contact-copy h1 {
 		color: var(--serv-off);
 		font-size: clamp(2rem, 1.3rem + 2vw, 2.5rem);
 	}
 
-	.page-hero p {
+	.contact-copy__sub {
+		font-size: 1.02rem;
 		color: var(--serv-text-muted-on-dark);
-		margin-bottom: 0;
+		margin: 0;
 	}
 
-	.contact-section {
-		padding-block: clamp(3rem, 4vw, 4rem);
+	.contact-points {
+		list-style: none;
+		margin: 2rem 0 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.875rem;
+	}
+
+	.contact-points li {
+		display: flex;
+		gap: 0.75rem;
+		align-items: baseline;
+		font-size: 0.94rem;
+		color: var(--serv-text-muted-on-dark);
+	}
+
+	.contact-points li::before {
+		content: '';
+		flex: none;
+		width: 16px;
+		height: 2px;
+		margin-top: 0.5em;
+		background: var(--serv-primary);
+	}
+
+	.contact-form-card {
+		position: relative;
+		background: #fff;
+		color: var(--serv-text-on-light);
+		padding: 2rem;
+		border: 1px solid var(--serv-border-on-dark-strong);
+	}
+
+	@media (max-width: 860px) {
+		.contact-hero__grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
 	}
 </style>
