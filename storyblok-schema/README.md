@@ -2,7 +2,7 @@
 
 `components.json` defines the CMS structure this site expects:
 
-- **page** (root) — a `body` field of nestable blocks (`auto-insights-section`, `elite-conquest-section`)
+- **page** (root) — `hero_heading` (text), `hero_subheading` (textarea), and a `body` field of nestable blocks (`auto-insights-section`, `elite-conquest-section`)
 - **auto-insights-section** — `heading` (text), `body` (richtext) — Auto Insights product copy
 - **elite-conquest-section** — `heading` (text), `body` (richtext) — Elite Conquest product copy
 - **job-listing** — `title`, `location`, `employment_type`, `description` (richtext), `apply_url` — placeholder in case hiring content is needed later
@@ -35,6 +35,7 @@ npx storyblok components push --space <SPACE_ID>
 
 Once the components exist in the space, create these stories:
 
+- `home` (type: `page`) — pulled into `src/pages/index.astro` (currently just `hero_heading`)
 - `auto-insights` (type: `page`) — pulled into `src/pages/auto-insights.astro`
 - `elite-conquest` (type: `page`) — pulled into `src/pages/elite-conquest.astro`
 - `jobs/*` (type: `job-listing`) — surfaced as a small "We're hiring" section on `src/pages/about.astro` when any exist

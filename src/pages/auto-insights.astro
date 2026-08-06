@@ -5,10 +5,25 @@ import HeroField from '../components/HeroField.astro';
 import { getStory } from '../lib/storyblok';
 
 const story = await getStory('auto-insights');
+const content = story?.content ?? {};
+
+const heroEyebrow = content.hero_eyebrow ?? 'Auto Insights';
+const heroHeading = content.hero_heading ?? 'De-anonymize 50% of daily website traffic';
 const heroSubheading =
-	story?.content?.hero_subheading ??
+	content.hero_subheading ??
 	'Two percent of your visitors fill out a form. Auto Insights lets you talk to half of them.';
-const bodySections = story?.content?.body ?? [];
+const bodySections = content.body ?? [];
+
+const defaultStats = [
+	{ number: '50%', label: 'of daily traffic identified' },
+	{ number: '3+', label: 'emails per visitor' },
+	{ number: '30%', label: 'more website leads' },
+	{ number: '15.3%', label: 'average close rate' },
+];
+const stats = content.stats?.length ? content.stats : defaultStats;
+
+const ctaHeading = content.cta_heading ?? 'Twenty minutes to see your own numbers';
+const ctaSubheading = content.cta_subheading ?? 'Name, email, dealership, and what you want to fix.';
 
 const fallbackSteps = [
 	{
@@ -38,8 +53,8 @@ const fallbackSteps = [
 	<section class="hero hero--product">
 		<HeroField variant="product" />
 		<div class="wrap hero--product__inner">
-			<p class="eyebrow">Auto Insights</p>
-			<h1>De-anonymize 50% of daily website traffic</h1>
+			<p class="eyebrow">{heroEyebrow}</p>
+			<h1>{heroHeading}</h1>
 			<p class="hero__sub">{heroSubheading}</p>
 		</div>
 	</section>
@@ -47,22 +62,14 @@ const fallbackSteps = [
 	<section class="stats-section">
 		<div class="wrap">
 			<div class="stat-bar">
-				<div class="stat-bar__item">
-					<p class="stat-bar__num">50%</p>
-					<p class="stat-bar__label">of daily traffic identified</p>
-				</div>
-				<div class="stat-bar__item">
-					<p class="stat-bar__num">3+</p>
-					<p class="stat-bar__label">emails per visitor</p>
-				</div>
-				<div class="stat-bar__item">
-					<p class="stat-bar__num">30%</p>
-					<p class="stat-bar__label">more website leads</p>
-				</div>
-				<div class="stat-bar__item">
-					<p class="stat-bar__num">15.3%</p>
-					<p class="stat-bar__label">average close rate</p>
-				</div>
+				{
+					stats.map((stat) => (
+						<div class="stat-bar__item">
+							<p class="stat-bar__num">{stat.number}</p>
+							<p class="stat-bar__label">{stat.label}</p>
+						</div>
+					))
+				}
 			</div>
 
 			<div class="step-rows">
@@ -102,8 +109,8 @@ const fallbackSteps = [
 	<section class="cta-band">
 		<div class="wrap cta-band__inner">
 			<div>
-				<h3>Twenty minutes to see your own numbers</h3>
-				<p>Name, email, dealership, and what you want to fix.</p>
+				<h3>{ctaHeading}</h3>
+				<p>{ctaSubheading}</p>
 			</div>
 			<a class="btn btn-primary" href="/contact">Schedule Demo</a>
 		</div>

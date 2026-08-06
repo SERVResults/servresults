@@ -1,9 +1,19 @@
 ---
+import { getStory } from '../lib/storyblok';
+
+const settingsStory = await getStory('settings');
+const settings = settingsStory?.content ?? {};
+
+const address = settings.footer_address ?? '1000 NW 65th St #305, Fort Lauderdale, FL 33309';
+const phone = settings.footer_phone ?? '954-420-6040';
+const email = settings.footer_email ?? 'info@servresults.com';
 ---
 
 <footer class="site-footer">
 	<div class="wrap">
-		<span>1000 NW 65th St #305, Fort Lauderdale, FL 33309 &middot; 954-420-6040 &middot; info@servresults.com</span>
+		<span>
+			{address} &middot; {phone} &middot; {email}
+		</span>
 		<span class="footer-links">
 			<a href="/privacy-policy">Privacy Policy</a>
 			<a href="/accessibility-statement">Accessibility Statement</a>

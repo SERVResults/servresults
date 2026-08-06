@@ -1,8 +1,16 @@
 ---
+import { getStory } from '../lib/storyblok';
+
+const settingsStory = await getStory('settings');
+const settings = settingsStory?.content ?? {};
+
+const logoText = settings.logo_text ?? 'SERV Results';
+const ctaLabel = settings.nav_cta_label ?? 'Schedule Demo';
+
 const links = [
-	{ href: '/auto-insights', label: 'Auto Insights' },
-	{ href: '/elite-conquest', label: 'Elite Conquest' },
-	{ href: '/about', label: 'About' },
+	{ href: '/auto-insights', label: settings.nav_auto_insights_label ?? 'Auto Insights' },
+	{ href: '/elite-conquest', label: settings.nav_elite_conquest_label ?? 'Elite Conquest' },
+	{ href: '/about', label: settings.nav_about_label ?? 'About' },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -10,7 +18,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <header class="site-header">
 	<div class="wrap">
-		<a class="logo" href="/">SERV Results</a>
+		<a class="logo" href="/">{logoText}</a>
 		<button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" id="nav-toggle">
 			<span></span>
 		</button>
@@ -26,7 +34,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 					))
 				}
 			</ul>
-			<a class="btn btn-primary btn-sm nav-cta" href="/contact">Schedule Demo</a>
+			<a class="btn btn-primary btn-sm nav-cta" href="/contact">{ctaLabel}</a>
 		</nav>
 	</div>
 </header>

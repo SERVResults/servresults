@@ -1,6 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroField from '../components/HeroField.astro';
+import { getStory } from '../lib/storyblok';
+
+const story = await getStory('home');
+const content = story?.content ?? {};
+
+const heroEyebrow = content.hero_eyebrow ?? 'Guaranteed Results';
+const heroHeading =
+	content.hero_heading ?? 'Increase sales opportunities by 30% from existing dealer website traffic';
+const heroSub = content.hero_subheading ?? 'Turn anonymous website visitors into high-closing leads.';
+
+const defaultStats = [
+	{ number: '30%+', label: 'minimum increase in 1st party leads' },
+	{ number: '15.3%', label: 'close rate average' },
+	{ number: '~50%', label: 'of daily website visitors engaged' },
+];
+const stats = content.stats?.length ? content.stats : defaultStats;
+
+const sectionEyebrow = content.section_eyebrow ?? 'Core Product';
+const sectionHeading = content.section_heading ?? 'Auto Insights';
+const sectionTag = content.section_tag ?? 'Four steps, one tag on your site';
+const sectionIntro =
+	content.section_intro ??
+	"Your website already has the audience. Auto Insights identifies it, engages it, and converts it — without adding third-party lead spend.";
+
+const defaultStepHeadings = [
+	'De-anonymize 50% of daily website traffic',
+	'Engage each visitor with 3+ emails',
+	'On-site offer engine converts down-funnel shoppers',
+	'Maximize website conversion — 30% more leads',
+];
+const stepHeadings = content.features?.length
+	? defaultStepHeadings.map((fallback, i) => content.features[i]?.heading || fallback)
+	: defaultStepHeadings;
+
+const teaserEyebrow = content.teaser_eyebrow ?? 'Also Available';
+const teaserHeading = content.teaser_heading ?? 'Elite Conquest';
+const teaserBody =
+	content.teaser_body ??
+	'Identifies in-market shoppers who visit your website and leave without converting, then re-engages them with branded email while the buying signal is still fresh.';
+
+const closingHeading =
+	content.closing_heading ?? 'Leadership team with 100+ years of combined automotive experience';
+const closingBody =
+	content.closing_body ??
+	"With a leadership and product team owning OEM, retail, and vendor experience, SERV Results is attacking an issue that often gets overlooked in automotive digital marketing: creating real results and conversion from the dealership's existing website traffic.";
 ---
 
 <BaseLayout title="Home" description="SERV Results helps car dealerships find, convert, and retain more customers with data-driven marketing.">
@@ -8,27 +53,23 @@ import HeroField from '../components/HeroField.astro';
 		<HeroField variant="home" withCar />
 		<div class="wrap hero__grid">
 			<div class="hero__copy">
-				<p class="eyebrow">Guaranteed Results</p>
-				<h1>Increase sales opportunities by 30% from existing dealer website traffic</h1>
-				<p class="hero__sub">Turn anonymous website visitors into high-closing leads.</p>
+				<p class="eyebrow">{heroEyebrow}</p>
+				<h1>{heroHeading}</h1>
+				<p class="hero__sub">{heroSub}</p>
 				<div class="hero__actions">
 					<a class="btn btn-primary" href="/contact">Schedule a 20-minute demo</a>
 					<a class="btn btn-outline-on-dark" href="/auto-insights">See Auto Insights</a>
 				</div>
 			</div>
 			<div class="hero__stats">
-				<div class="hero__stat">
-					<p class="hero__stat-number">30%+</p>
-					<p class="hero__stat-label">minimum increase in 1st party leads</p>
-				</div>
-				<div class="hero__stat">
-					<p class="hero__stat-number">15.3%</p>
-					<p class="hero__stat-label">close rate average</p>
-				</div>
-				<div class="hero__stat">
-					<p class="hero__stat-number">~50%</p>
-					<p class="hero__stat-label">of daily website visitors engaged</p>
-				</div>
+				{
+					stats.map((stat) => (
+						<div class="hero__stat">
+							<p class="hero__stat-number">{stat.number}</p>
+							<p class="hero__stat-label">{stat.label}</p>
+						</div>
+					))
+				}
 			</div>
 		</div>
 	</section>
@@ -37,15 +78,12 @@ import HeroField from '../components/HeroField.astro';
 		<div class="wrap">
 			<div class="band-core__head">
 				<div>
-					<p class="eyebrow eyebrow-deep">Core Product</p>
-					<h2>Auto Insights</h2>
+					<p class="eyebrow eyebrow-deep">{sectionEyebrow}</p>
+					<h2>{sectionHeading}</h2>
 				</div>
-				<p class="band-core__tag">Four steps, one tag on your site</p>
+				<p class="band-core__tag">{sectionTag}</p>
 			</div>
-			<p class="band-core__intro">
-				Your website already has the audience. Auto Insights identifies it, engages it, and converts it — without
-				adding third-party lead spend.
-			</p>
+			<p class="band-core__intro">{sectionIntro}</p>
 
 			<div class="step-grid">
 				<div class="step-card">
@@ -58,7 +96,7 @@ import HeroField from '../components/HeroField.astro';
 						</div>
 						<p class="step-card__caption">50 of 100 sessions matched</p>
 					</div>
-					<h3>De-anonymize 50% of daily website traffic</h3>
+					<h3>{stepHeadings[0]}</h3>
 				</div>
 
 				<div class="step-card">
@@ -70,7 +108,7 @@ import HeroField from '../components/HeroField.astro';
 						</div>
 						<p class="step-card__caption">3+ emails per visitor</p>
 					</div>
-					<h3>Engage each visitor with 3+ emails</h3>
+					<h3>{stepHeadings[1]}</h3>
 				</div>
 
 				<div class="step-card">
@@ -81,7 +119,7 @@ import HeroField from '../components/HeroField.astro';
 						</div>
 						<p class="step-card__caption">offer served at exit intent</p>
 					</div>
-					<h3>On-site offer engine converts down-funnel shoppers</h3>
+					<h3>{stepHeadings[2]}</h3>
 				</div>
 
 				<div class="step-card">
@@ -98,7 +136,7 @@ import HeroField from '../components/HeroField.astro';
 						</div>
 						<p class="step-card__caption">+30% 1st party leads</p>
 					</div>
-					<h3>Maximize website conversion &mdash; 30% more leads</h3>
+					<h3>{stepHeadings[3]}</h3>
 				</div>
 			</div>
 
@@ -109,12 +147,9 @@ import HeroField from '../components/HeroField.astro';
 	<section class="band band-elite">
 		<div class="wrap band-elite__inner">
 			<div>
-				<p class="eyebrow eyebrow-muted">Also Available</p>
-				<h3>Elite Conquest</h3>
-				<p>
-					Identifies in-market shoppers who visit your website and leave without converting, then re-engages
-					them with branded email while the buying signal is still fresh.
-				</p>
+				<p class="eyebrow eyebrow-muted">{teaserEyebrow}</p>
+				<h3>{teaserHeading}</h3>
+				<p>{teaserBody}</p>
 			</div>
 			<a class="text-link" href="/elite-conquest">Learn more &rarr;</a>
 		</div>
@@ -122,12 +157,8 @@ import HeroField from '../components/HeroField.astro';
 
 	<section class="band band-leadership">
 		<div class="wrap band-leadership__inner">
-			<h3>Leadership team with 100+ years of combined automotive experience</h3>
-			<p>
-				With a leadership and product team owning OEM, retail, and vendor experience, SERV Results is attacking
-				an issue that often gets overlooked in automotive digital marketing: creating real results and conversion
-				from the dealership's existing website traffic.
-			</p>
+			<h3>{closingHeading}</h3>
+			<p>{closingBody}</p>
 		</div>
 	</section>
 </BaseLayout>

@@ -5,10 +5,14 @@ import HeroField from '../components/HeroField.astro';
 import { getStory } from '../lib/storyblok';
 
 const story = await getStory('elite-conquest');
+const content = story?.content ?? {};
+
+const heroEyebrow = content.hero_eyebrow ?? 'Elite Conquest';
+const heroHeading = content.hero_heading ?? 'Identify in-market shoppers who leave without converting';
 const heroSubheading =
-	story?.content?.hero_subheading ??
+	content.hero_subheading ??
 	"Most shoppers don't raise their hand before they're ready to buy. Elite Conquest re-engages them with branded email while the buying signal is still fresh.";
-const bodySections = story?.content?.body ?? [];
+const bodySections = content.body ?? [];
 
 const fallbackSteps = [
 	{
@@ -29,7 +33,7 @@ const fallbackSteps = [
 	},
 ];
 
-const audiencePools = [
+const defaultAudiencePools = [
 	{
 		name: 'Website Exit Audience',
 		body: 'High-intent shoppers who visited your website but left before submitting a lead.',
@@ -39,8 +43,11 @@ const audiencePools = [
 		body: "Additional in-market prospects in your trade area who show signs they're ready to buy.",
 	},
 ];
+const audiencePools = content.features?.length
+	? content.features.map((f) => ({ name: f.heading, body: f.body }))
+	: defaultAudiencePools;
 
-const programFeatures = [
+const defaultProgramFeatures = [
 	{ name: 'Monthly audience build', body: 'Website exit traffic plus local in-market add-on prospects.' },
 	{ name: 'Two email deployments', body: 'A consistent monthly cadence that keeps you in front of shoppers.' },
 	{
@@ -50,14 +57,32 @@ const programFeatures = [
 	{ name: 'Monthly reporting', body: 'Audience size, engagement, and next-campaign recommendations.' },
 	{ name: 'Dedicated account manager', body: 'Hands-on support from strategy through execution.' },
 ];
+const programFeatures = content.features_2?.length
+	? content.features_2.map((f) => ({ name: f.heading, body: f.body }))
+	: defaultProgramFeatures;
+
+const audienceEyebrow = content.section_eyebrow ?? 'Audience Strategy';
+const audienceHeading = content.section_heading ?? 'Two audience pools, working together';
+const audienceIntro = content.section_intro ?? 'Start with the hottest signal, then layer in broader reach.';
+const audienceNote =
+	content.section_note ??
+	'Targeting can be customized by geography, sales goal, vehicle strategy, and monthly campaign focus.';
+
+const programEyebrow = content.section2_eyebrow ?? 'Program Structure';
+const programHeading = content.section2_heading ?? 'Simple to launch, built for recurring monthly execution';
+const programNote =
+	content.section2_note ?? "Program scope and pricing can be tailored to your dealership's strategy.";
+
+const ctaHeading = content.cta_heading ?? 'Ready to turn hidden website traffic into conquest opportunities?';
+const ctaSubheading = content.cta_subheading ?? 'See how Elite Conquest works for your dealership and market.';
 ---
 
 <BaseLayout title="Elite Conquest" description="Elite Conquest, from the team behind Auto Insights.">
 	<section class="hero hero--product">
 		<HeroField variant="product" />
 		<div class="wrap hero--product__inner">
-			<p class="eyebrow">Elite Conquest</p>
-			<h1>Identify in-market shoppers who leave without converting</h1>
+			<p class="eyebrow">{heroEyebrow}</p>
+			<h1>{heroHeading}</h1>
 			<p class="hero__sub">{heroSubheading}</p>
 			<a class="text-link-on-dark" href="/auto-insights">See Auto Insights, our flagship product &rarr;</a>
 		</div>
@@ -87,9 +112,9 @@ const programFeatures = [
 
 	<section class="audience">
 		<div class="wrap reveal">
-			<p class="eyebrow eyebrow-deep">Audience Strategy</p>
-			<h2>Two audience pools, working together</h2>
-			<p class="audience__intro">Start with the hottest signal, then layer in broader reach.</p>
+			<p class="eyebrow eyebrow-deep">{audienceEyebrow}</p>
+			<h2>{audienceHeading}</h2>
+			<p class="audience__intro">{audienceIntro}</p>
 			<div class="audience-grid">
 				{
 					audiencePools.map((pool) => (
@@ -100,16 +125,14 @@ const programFeatures = [
 					))
 				}
 			</div>
-			<p class="audience__note">
-				Targeting can be customized by geography, sales goal, vehicle strategy, and monthly campaign focus.
-			</p>
+			<p class="audience__note">{audienceNote}</p>
 		</div>
 	</section>
 
 	<section class="program">
 		<div class="wrap reveal">
-			<p class="eyebrow eyebrow-muted">Program Structure</p>
-			<h2>Simple to launch, built for recurring monthly execution</h2>
+			<p class="eyebrow eyebrow-muted">{programEyebrow}</p>
+			<h2>{programHeading}</h2>
 			<div class="program-grid">
 				{
 					programFeatures.map((feature) => (
@@ -120,15 +143,15 @@ const programFeatures = [
 					))
 				}
 			</div>
-			<p class="program__note">Program scope and pricing can be tailored to your dealership's strategy.</p>
+			<p class="program__note">{programNote}</p>
 		</div>
 	</section>
 
 	<section class="cta-band">
 		<div class="wrap cta-band__inner">
 			<div>
-				<h3>Ready to turn hidden website traffic into conquest opportunities?</h3>
-				<p>See how Elite Conquest works for your dealership and market.</p>
+				<h3>{ctaHeading}</h3>
+				<p>{ctaSubheading}</p>
 			</div>
 			<a class="btn btn-primary" href="/contact">Schedule Demo</a>
 		</div>

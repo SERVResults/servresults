@@ -1,14 +1,23 @@
 ---
+import { renderRichText } from '@storyblok/astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getStory } from '../lib/storyblok';
 
 const lastUpdated = 'August 2026';
+
+const story = await getStory('privacy-policy');
+const content = story?.content ?? {};
+
+const heroEyebrow = content.hero_eyebrow ?? 'Privacy Policy';
+const heroHeading = content.hero_heading ?? 'Privacy Policy';
+const legalSections = content.legal_sections ?? [];
 ---
 
 <BaseLayout title="Privacy Policy" description="How SERV Results collects, uses, and protects your information.">
 	<section class="page-hero">
 		<div class="wrap">
-			<p class="eyebrow">Privacy Policy</p>
-			<h1>Privacy Policy</h1>
+			<p class="eyebrow">{heroEyebrow}</p>
+			<h1>{heroHeading}</h1>
 		</div>
 	</section>
 
@@ -19,33 +28,49 @@ const lastUpdated = 'August 2026';
 			</p>
 			<p class="updated">Last updated: {lastUpdated}</p>
 
-			<h2>Information we collect</h2>
-			<p>
-				When you submit our contact or demo request form, we collect the information you provide: your name,
-				email address, dealership name, and message. We do not currently use cookies or analytics tracking on
-				this site.
-			</p>
+			{
+				legalSections.length > 0 ? (
+					legalSections.map((section) => (
+						<>
+							<h2>{section.heading}</h2>
+							<Fragment set:html={renderRichText(section.body)} />
+						</>
+					))
+				) : (
+					<>
+						<h2>Information we collect</h2>
+						<p>
+							When you submit our contact or demo request form, we collect the information you provide: your
+							name, email address, dealership name, and message. We do not currently use cookies or analytics
+							tracking on this site.
+						</p>
 
-			<h2>How we use your information</h2>
-			<p>
-				We use the information you submit solely to respond to your inquiry and follow up about SERV Results
-				products and services. We do not sell your information to third parties.
-			</p>
+						<h2>How we use your information</h2>
+						<p>
+							We use the information you submit solely to respond to your inquiry and follow up about SERV
+							Results products and services. We do not sell your information to third parties.
+						</p>
 
-			<h2>How we store your information</h2>
-			<p>
-				Form submissions are sent to our internal team for follow-up. We retain this information only as long
-				as needed to respond to your inquiry and maintain our business records.
-			</p>
+						<h2>How we store your information</h2>
+						<p>
+							Form submissions are sent to our internal team for follow-up. We retain this information only
+							as long as needed to respond to your inquiry and maintain our business records.
+						</p>
 
-			<h2>Your choices</h2>
-			<p>
-				To request that we delete information you've submitted, or if you have questions about this policy,
-				contact us at <a href="mailto:privacy@servresults.com">privacy@servresults.com</a>.
-			</p>
+						<h2>Your choices</h2>
+						<p>
+							To request that we delete information you've submitted, or if you have questions about this
+							policy, contact us at <a href="mailto:privacy@servresults.com">privacy@servresults.com</a>.
+						</p>
 
-			<h2>Changes to this policy</h2>
-			<p>We may update this policy from time to time. Changes will be posted on this page with an updated date.</p>
+						<h2>Changes to this policy</h2>
+						<p>
+							We may update this policy from time to time. Changes will be posted on this page with an updated
+							date.
+						</p>
+					</>
+				)
+			}
 		</div>
 	</section>
 </BaseLayout>

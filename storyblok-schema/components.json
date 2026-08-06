@@ -5,15 +5,173 @@
 		"is_root": true,
 		"is_nestable": false,
 		"schema": {
+			"hero_eyebrow": {
+				"type": "text",
+				"display_name": "Hero eyebrow label"
+			},
+			"hero_heading": {
+				"type": "text",
+				"display_name": "Hero heading"
+			},
 			"hero_subheading": {
 				"type": "textarea",
 				"display_name": "Hero subheading"
+			},
+			"hero_points": {
+				"type": "bloks",
+				"display_name": "Hero reassurance points (Contact page)",
+				"restrict_components": true,
+				"component_whitelist": ["text-item"]
+			},
+			"stats": {
+				"type": "bloks",
+				"display_name": "Stat callouts (Home hero / Auto Insights stat bar)",
+				"restrict_components": true,
+				"component_whitelist": ["stat"]
+			},
+			"section_eyebrow": {
+				"type": "text",
+				"display_name": "Section 1 eyebrow label"
+			},
+			"section_heading": {
+				"type": "text",
+				"display_name": "Section 1 heading"
+			},
+			"section_tag": {
+				"type": "text",
+				"display_name": "Section 1 small tag (right-aligned mono label)"
+			},
+			"section_intro": {
+				"type": "textarea",
+				"display_name": "Section 1 intro paragraph"
+			},
+			"features": {
+				"type": "bloks",
+				"display_name": "Section 1 feature items",
+				"restrict_components": true,
+				"component_whitelist": ["feature-item"]
+			},
+			"section_note": {
+				"type": "text",
+				"display_name": "Section 1 footnote"
+			},
+			"section2_eyebrow": {
+				"type": "text",
+				"display_name": "Section 2 eyebrow label"
+			},
+			"section2_heading": {
+				"type": "text",
+				"display_name": "Section 2 heading"
+			},
+			"features_2": {
+				"type": "bloks",
+				"display_name": "Section 2 feature items",
+				"restrict_components": true,
+				"component_whitelist": ["feature-item"]
+			},
+			"section2_note": {
+				"type": "text",
+				"display_name": "Section 2 footnote"
+			},
+			"teaser_eyebrow": {
+				"type": "text",
+				"display_name": "Teaser band eyebrow label"
+			},
+			"teaser_heading": {
+				"type": "text",
+				"display_name": "Teaser band heading"
+			},
+			"teaser_body": {
+				"type": "textarea",
+				"display_name": "Teaser band body"
+			},
+			"closing_heading": {
+				"type": "text",
+				"display_name": "Closing band heading"
+			},
+			"closing_body": {
+				"type": "textarea",
+				"display_name": "Closing band body"
+			},
+			"cta_heading": {
+				"type": "text",
+				"display_name": "CTA band heading"
+			},
+			"cta_subheading": {
+				"type": "textarea",
+				"display_name": "CTA band subheading"
 			},
 			"body": {
 				"type": "bloks",
 				"display_name": "Body",
 				"restrict_components": true,
 				"component_whitelist": ["auto-insights-section", "elite-conquest-section"]
+			},
+			"legal_sections": {
+				"type": "bloks",
+				"display_name": "Legal sections (Privacy Policy / Accessibility Statement)",
+				"restrict_components": true,
+				"component_whitelist": ["content-section"]
+			}
+		}
+	},
+	{
+		"name": "stat",
+		"display_name": "Stat",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"number": {
+				"type": "text",
+				"display_name": "Number"
+			},
+			"label": {
+				"type": "text",
+				"display_name": "Label"
+			}
+		}
+	},
+	{
+		"name": "feature-item",
+		"display_name": "Feature Item",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"heading": {
+				"type": "text",
+				"display_name": "Heading"
+			},
+			"body": {
+				"type": "textarea",
+				"display_name": "Body"
+			}
+		}
+	},
+	{
+		"name": "text-item",
+		"display_name": "Text Item",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"text": {
+				"type": "text",
+				"display_name": "Text"
+			}
+		}
+	},
+	{
+		"name": "content-section",
+		"display_name": "Content Section",
+		"is_root": false,
+		"is_nestable": true,
+		"schema": {
+			"heading": {
+				"type": "text",
+				"display_name": "Heading"
+			},
+			"body": {
+				"type": "richtext",
+				"display_name": "Body copy"
 			}
 		}
 	},
@@ -79,6 +237,46 @@
 			"apply_url": {
 				"type": "text",
 				"display_name": "Apply URL"
+			}
+		}
+	},
+	{
+		"name": "settings",
+		"display_name": "Site Settings",
+		"is_root": true,
+		"is_nestable": false,
+		"schema": {
+			"logo_text": {
+				"type": "text",
+				"display_name": "Logo text"
+			},
+			"nav_auto_insights_label": {
+				"type": "text",
+				"display_name": "Nav: Auto Insights label"
+			},
+			"nav_elite_conquest_label": {
+				"type": "text",
+				"display_name": "Nav: Elite Conquest label"
+			},
+			"nav_about_label": {
+				"type": "text",
+				"display_name": "Nav: About label"
+			},
+			"nav_cta_label": {
+				"type": "text",
+				"display_name": "Nav: CTA button label"
+			},
+			"footer_address": {
+				"type": "text",
+				"display_name": "Footer: address"
+			},
+			"footer_phone": {
+				"type": "text",
+				"display_name": "Footer: phone"
+			},
+			"footer_email": {
+				"type": "text",
+				"display_name": "Footer: email"
 			}
 		}
 	}

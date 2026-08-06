@@ -2,6 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroField from '../components/HeroField.astro';
 import ContactForm from '../components/ContactForm.astro';
+import { getStory } from '../lib/storyblok';
+
+const story = await getStory('contact');
+const content = story?.content ?? {};
+
+const heroEyebrow = content.hero_eyebrow ?? 'Contact';
+const heroHeading = content.hero_heading ?? 'Schedule a demo';
+const heroSubheading =
+	content.hero_subheading ??
+	"Tell us a bit about your dealership and we'll show you what Auto Insights looks like on your own website traffic — no canned demo, just your data.";
+
+const defaultPoints = [
+	{ text: 'No canned demo — we use your own site traffic' },
+	{ text: '20 minutes, start to finish' },
+	{ text: 'Walk away with real numbers for your dealership' },
+];
+const points = content.hero_points?.length ? content.hero_points : defaultPoints;
 ---
 
 <BaseLayout title="Contact" description="Book a demo or get in touch with SERV Results.">
@@ -9,16 +26,11 @@ import ContactForm from '../components/ContactForm.astro';
 		<HeroField variant="product" />
 		<div class="wrap contact-hero__grid">
 			<div class="contact-copy">
-				<p class="eyebrow">Contact</p>
-				<h1>Schedule a demo</h1>
-				<p class="contact-copy__sub">
-					Tell us a bit about your dealership and we'll show you what Auto Insights looks like on your own
-					website traffic — no canned demo, just your data.
-				</p>
+				<p class="eyebrow">{heroEyebrow}</p>
+				<h1>{heroHeading}</h1>
+				<p class="contact-copy__sub">{heroSubheading}</p>
 				<ul class="contact-points">
-					<li>No canned demo — we use your own site traffic</li>
-					<li>20 minutes, start to finish</li>
-					<li>Walk away with real numbers for your dealership</li>
+					{points.map((point) => <li>{point.text}</li>)}
 				</ul>
 			</div>
 
