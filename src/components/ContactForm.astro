@@ -19,7 +19,7 @@
 
 	<div class="field">
 		<label for="message">Message</label>
-		<textarea id="message" name="message" rows="5" required></textarea>
+		<textarea id="message" name="message" rows="3" required></textarea>
 	</div>
 
 	<button type="submit" class="btn btn-primary">Send</button>
@@ -31,13 +31,13 @@
 	.contact-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 0.875rem;
 	}
 
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.4rem;
+		gap: 0.35rem;
 	}
 
 	label {
@@ -63,6 +63,29 @@
 
 	button {
 		align-self: flex-start;
+	}
+
+	@media (max-height: 760px) {
+		.contact-form {
+			gap: 0.625rem;
+		}
+
+		.field {
+			gap: 0.2rem;
+		}
+
+		input,
+		textarea {
+			padding: 0.4rem 0.75rem;
+		}
+
+		textarea {
+			height: 2.75rem;
+		}
+
+		button {
+			padding: 0.5rem 1.5rem;
+		}
 	}
 
 	#contact-form-status {
