@@ -22,6 +22,11 @@
 		<textarea id="message" name="message" rows="3" required></textarea>
 	</div>
 
+	<div class="field field--honeypot" aria-hidden="true">
+		<label for="honeypot">Leave this field empty</label>
+		<input id="honeypot" name="honeypot" type="text" tabindex="-1" autocomplete="off" />
+	</div>
+
 	<button type="submit" class="btn btn-primary">Send</button>
 
 	<p id="contact-form-status" role="status" aria-live="polite"></p>
@@ -38,6 +43,14 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.35rem;
+	}
+
+	.field--honeypot {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
 	}
 
 	label {
@@ -123,6 +136,7 @@
 			email: String(data.get('email') ?? ''),
 			dealershipName: String(data.get('dealershipName') ?? ''),
 			message: String(data.get('message') ?? ''),
+			honeypot: String(data.get('honeypot') ?? ''),
 		});
 
 		submitButton?.removeAttribute('disabled');
