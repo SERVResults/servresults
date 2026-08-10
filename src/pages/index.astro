@@ -23,13 +23,13 @@ const sectionHeading = content.section_heading ?? 'Auto Insights';
 const sectionTag = content.section_tag ?? 'Four steps, one tag on your site';
 const sectionIntro =
 	content.section_intro ??
-	"Your website already has the audience. Auto Insights identifies it, engages it, and converts it — without adding third-party lead spend.";
+	"Your website already has the audience. Auto Insights identifies it, engages it, and converts it - without adding third-party lead spend.";
 
 const defaultStepHeadings = [
 	'De-anonymize 50% of daily website traffic',
 	'Engage each visitor with 3+ emails',
 	'On-site offer engine converts down-funnel shoppers',
-	'Maximize website conversion — 30% more leads',
+	'Maximize website conversion - 30% more leads',
 ];
 const stepHeadings = content.features?.length
 	? defaultStepHeadings.map((fallback, i) => content.features[i]?.heading || fallback)

@@ -201,7 +201,7 @@ svg {
 	font-weight: 500;
 }
 
-/* Auto Insights numbered step rows — shared between the Storyblok-driven
+/* Auto Insights numbered step rows - shared between the Storyblok-driven
    renderer (AutoInsightsSection.astro) and the no-CMS-content fallback on
    the Auto Insights page, so both read as one design regardless of source. */
 .step-rows {
@@ -259,7 +259,7 @@ svg {
 	}
 }
 
-/* Shared hero motion keyframes — see components/HeroField.astro */
+/* Shared hero motion keyframes - see components/HeroField.astro */
 @keyframes servSpin {
 	to {
 		transform: rotate(360deg);

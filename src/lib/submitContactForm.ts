@@ -39,6 +39,6 @@ export async function submitContactForm(payload: ContactFormPayload): Promise<Co
 
 		return { ok: true };
 	} catch {
-		return { ok: false, error: 'Network error — please check your connection and try again.' };
+		return { ok: false, error: 'Network error - please check your connection and try again.' };
 	}
 }
