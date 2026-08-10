@@ -133,4 +133,21 @@ const { variant = 'home', withCar = false } = Astro.props;
 		animation-duration: var(--serv-wheel, 1s);
 		animation-play-state: var(--serv-play, running);
 	}
+
+	/* The car crosses the same 132%-of-viewport-width distance regardless of
+	   screen size, so on a narrow phone screen it covers far fewer of its own
+	   body-lengths per second than on desktop and reads as crawling rather
+	   than driving. Shorten the crossing (and spin the wheels proportionally
+	   faster) below the breakpoint where the car is already at its smaller
+	   96px size. Placed after the base rules above so it wins the cascade
+	   despite matching them on specificity. */
+	@media (max-width: 639px) {
+		.hero-field__car {
+			animation-duration: 4.5s;
+		}
+
+		.hero-field__wheel {
+			animation-duration: 0.35s;
+		}
+	}
 </style>
