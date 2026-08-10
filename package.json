@@ -12,7 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.1.6",
-    "@storyblok/astro": "^10.2.3"
+    "@astrojs/sitemap": "^3.7.3",
+    "@storyblok/astro": "^10.2.3",
+    "astro": "^7.1.6"
   }
 }

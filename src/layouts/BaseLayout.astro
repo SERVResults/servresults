@@ -1,14 +1,48 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { getStory } from '../lib/storyblok';
 import '../styles/global.css';
 
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
+	noindex?: boolean;
 }
 
-const { title, description = 'SERV Results - digital marketing built for car dealerships.' } = Astro.props;
+const {
+	title,
+	description = 'SERV Results - digital marketing built for car dealerships.',
+	image = '/og-image.png',
+	noindex = false,
+} = Astro.props;
+
+// Avoid a doubled-up "SERV Results | ... | SERV Results" when a page (e.g.
+// the homepage) already includes the brand name in its own title.
+const pageTitle = title.includes('SERV Results') ? title : `${title} | SERV Results`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
+
+const settingsStory = await getStory('settings');
+const settings = settingsStory?.content ?? {};
+const orgPhone = settings.footer_phone ?? '954-420-6040';
+const orgAddress = settings.footer_address ?? '1000 NW 65th St #305, Fort Lauderdale, FL 33309';
+
+// Escape "<" so a CMS-editable field (e.g. footer_address) can never contain
+// a literal "</script>" that closes this tag early and leaks the rest of
+// the JSON as raw HTML.
+const organizationJsonLd = JSON.stringify({
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: 'SERV Results',
+	url: Astro.site,
+	logo: new URL('/brand/logo-mark-color.png', Astro.site),
+	image: socialImageURL,
+	description: 'SERV Results builds data-driven marketing software for car dealerships.',
+	telephone: orgPhone,
+	address: orgAddress,
+}).replace(/</g, '\\u003c');
 ---
 
 <html lang="en">
@@ -19,13 +53,35 @@ const { title, description = 'SERV Results - digital marketing built for car dea
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
-		<title>{title} | SERV Results</title>
+		{
+			noindex ? (
+				<meta name="robots" content="noindex, follow" />
+			) : (
+				<link rel="canonical" href={canonicalURL} />
+			)
+		}
+		<title>{pageTitle}</title>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="SERV Results" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={socialImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageURL} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
 			rel="stylesheet"
 		/>
+		<script type="application/ld+json" set:html={organizationJsonLd} />
 	</head>
 	<body>
 		<Nav />

@@ -87,7 +87,7 @@ aws lambda create-function \
   --role <ROLE_ARN_FROM_ABOVE> \
   --zip-file fileb://function.zip \
   --timeout 10 \
-  --environment "Variables={FROM_EMAIL='SERV Results Website <noreply@servresults.com>',TO_EMAILS=info@servresults.com,ALLOWED_ORIGIN=https://devservresults.com}"
+  --environment "Variables={FROM_EMAIL='SERV Results Website <noreply@servresults.com>',TO_EMAILS=info@servresults.com,ALLOWED_ORIGIN=https://servresults.com}"
 ```
 
 For local dev/testing, you can add `http://localhost:4321` to the CORS config
@@ -99,7 +99,7 @@ below alongside the real domain.
 aws lambda create-function-url-config \
   --function-name servresults-contact-form \
   --auth-type NONE \
-  --cors '{"AllowOrigins":["https://devservresults.com","http://localhost:4321"],"AllowMethods":["POST"],"AllowHeaders":["content-type"]}'
+  --cors '{"AllowOrigins":["https://servresults.com","http://localhost:4321"],"AllowMethods":["POST"],"AllowHeaders":["content-type"]}'
 
 aws lambda add-permission \
   --function-name servresults-contact-form \

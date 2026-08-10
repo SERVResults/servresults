@@ -6,7 +6,7 @@
 
 import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://devservresults.com';
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://servresults.com';
 const FROM_EMAIL = process.env.FROM_EMAIL || 'SERV Results Website <noreply@servresults.com>';
 const TO_EMAILS = (process.env.TO_EMAILS || 'info@servresults.com').split(',').map((s) => s.trim());
 
