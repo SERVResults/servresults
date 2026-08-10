@@ -6,6 +6,9 @@ dist/
 # dependencies
 node_modules/
 
+# built Lambda deployment artifacts
+functions/**/function.zip
+
 # logs
 npm-debug.log*
 yarn-debug.log*

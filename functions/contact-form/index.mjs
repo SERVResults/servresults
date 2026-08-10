@@ -1,12 +1,16 @@
 // AWS Lambda handler (Node.js 20.x runtime, invoked via a Lambda Function URL).
-// Receives the contact form payload, validates it, and sends it through Resend.
-// No dependencies — uses the runtime's built-in fetch, so this deploys as a plain
-// zip of this one file with no `npm install` step.
+// Receives the contact form payload, validates it, and sends it through
+// Amazon SES. Authenticates to SES via the function's own IAM role — no API
+// key or secret involved. See README.md for the SES identity verification
+// and IAM permission this depends on.
 
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://servresults.com';
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
+
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://devservresults.com';
 const FROM_EMAIL = process.env.FROM_EMAIL || 'SERV Results Website <noreply@servresults.com>';
 const TO_EMAILS = (process.env.TO_EMAILS || 'info@servresults.com').split(',').map((s) => s.trim());
+
+const ses = new SESv2Client({});
 
 const corsHeaders = {
 	'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
@@ -57,35 +61,28 @@ export const handler = async (event) => {
 		return json(400, { ok: false, error: 'Please enter a valid email address.' });
 	}
 
-	if (!RESEND_API_KEY) {
-		console.error('RESEND_API_KEY is not configured.');
-		return json(500, { ok: false, error: 'Something went wrong. Please try again later.' });
-	}
-
 	try {
-		const res = await fetch('https://api.resend.com/emails', {
-			method: 'POST',
-			headers: {
-				Authorization: `Bearer ${RESEND_API_KEY}`,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				from: FROM_EMAIL,
-				to: TO_EMAILS,
-				reply_to: email,
-				subject: `New demo request from ${dealershipName}`,
-				text: `Name: ${name}\nEmail: ${email}\nDealership: ${dealershipName}\n\nMessage:\n${message}`,
+		await ses.send(
+			new SendEmailCommand({
+				FromEmailAddress: FROM_EMAIL,
+				Destination: { ToAddresses: TO_EMAILS },
+				ReplyToAddresses: [email],
+				Content: {
+					Simple: {
+						Subject: { Data: `New demo request from ${dealershipName}` },
+						Body: {
+							Text: {
+								Data: `Name: ${name}\nEmail: ${email}\nDealership: ${dealershipName}\n\nMessage:\n${message}`,
+							},
+						},
+					},
+				},
 			}),
-		});
-
-		if (!res.ok) {
-			console.error('Resend error', res.status, await res.text());
-			return json(502, { ok: false, error: 'Something went wrong sending your message. Please try again.' });
-		}
+		);
 
 		return json(200, { ok: true });
 	} catch (err) {
-		console.error('Unexpected error calling Resend', err);
-		return json(500, { ok: false, error: 'Something went wrong. Please try again.' });
+		console.error('SES send error', err);
+		return json(502, { ok: false, error: 'Something went wrong sending your message. Please try again.' });
 	}
 };

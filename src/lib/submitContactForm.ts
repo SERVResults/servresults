@@ -15,8 +15,8 @@ const CONTACT_FUNCTION_URL = import.meta.env.PUBLIC_CONTACT_FUNCTION_URL as stri
 
 /**
  * Single entry point for sending the contact/demo form. Posts to the
- * standalone Lambda function in functions/contact-form, which calls Resend
- * server-side (the API key can never live in this client-side file).
+ * standalone Lambda function in functions/contact-form, which calls Amazon SES
+ * server-side via the function's own IAM role (no secret to leak from here).
  */
 export async function submitContactForm(payload: ContactFormPayload): Promise<ContactFormResult> {
 	if (!CONTACT_FUNCTION_URL) {

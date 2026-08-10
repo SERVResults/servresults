@@ -68,7 +68,7 @@ Until those stories exist in Storyblok, the corresponding pages render clearly-m
 
 ## Contact form
 
-The contact/demo form (`src/components/ContactForm.astro`) collects name, email, dealership name, and message. Submission goes through a single function, `submitContactForm` in `src/lib/submitContactForm.ts` — swap its implementation for whichever provider is chosen (Resend, Formspree, or EmailJS) without touching the form markup.
+The `/contact` page offers two options: an embedded Microsoft Bookings widget for scheduling a demo directly, and a quick-message form (`src/components/ContactForm.astro`, name/email/dealership name/message). The form posts through `submitContactForm` in `src/lib/submitContactForm.ts` to a standalone Lambda function (`functions/contact-form`) that sends the email via Amazon SES, authenticated via the function's own IAM role — no API key involved. See `functions/contact-form/README.md` to deploy it.
 
 ## Deployment (AWS Amplify Hosting)
 
@@ -76,7 +76,7 @@ This repo uses Astro's standard static build (`output: 'static'`), which Amplify
 
 1. Connect this git repository in the Amplify console.
 2. Amplify auto-detects Astro; confirm build settings: build command `npm run build`, output directory `dist`.
-3. Add environment variables in the Amplify app settings (App settings → Environment variables): `STORYBLOK_TOKEN`, plus whichever email-provider variable is chosen once the contact form is wired up.
+3. Add environment variables in the Amplify app settings (App settings → Environment variables): `STORYBLOK_TOKEN` and `PUBLIC_CONTACT_FUNCTION_URL` (see `functions/contact-form/README.md` for deploying that function and getting its URL).
 4. Push to the connected branch to trigger a deploy.
 
 **Rollout plan (per client decision):** the current live site (servresults.com, on Wix) stays up during the rebuild. Point a subdomain (e.g. `new.servresults.com`) at this Amplify app first for client review; only cut the apex domain over from Wix to Amplify after approval.
