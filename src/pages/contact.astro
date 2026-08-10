@@ -11,10 +11,9 @@ const heroEyebrow = content.hero_eyebrow ?? 'Contact';
 const heroHeading = content.hero_heading ?? 'Schedule a demo';
 const heroSubheading =
 	content.hero_subheading ??
-	"Tell us a bit about your dealership and we'll show you what Auto Insights looks like on your own website traffic - no canned demo, just your data.";
+	"Tell us a bit about your dealership and we'll show you what Auto Insights looks like.";
 
 const defaultPoints = [
-	{ text: 'No canned demo - we use your own site traffic' },
 	{ text: '20 minutes, start to finish' },
 	{ text: 'Walk away with real numbers for your dealership' },
 ];
@@ -42,19 +41,19 @@ const bookingUrl =
 
 			<div class="contact-form-card">
 				<div class="option-tabs" role="tablist">
-					<button type="button" class="option-tab is-active" data-tab="message" role="tab" aria-selected="true">
+					<button type="button" class="option-tab" data-tab="message" role="tab" aria-selected="false">
 						Send a message
 					</button>
-					<button type="button" class="option-tab" data-tab="book" role="tab" aria-selected="false">
+					<button type="button" class="option-tab is-active" data-tab="book" role="tab" aria-selected="true">
 						Schedule a demo
 					</button>
 				</div>
 
-				<div class="option-panel" data-panel="message">
+				<div class="option-panel" data-panel="message" hidden>
 					<ContactForm />
 				</div>
 
-				<div class="option-panel" data-panel="book" hidden>
+				<div class="option-panel" data-panel="book">
 					<iframe
 						class="booking-frame"
 						src={bookingUrl}
