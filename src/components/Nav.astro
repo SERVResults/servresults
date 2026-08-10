@@ -18,7 +18,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <header class="site-header">
 	<div class="wrap">
-		<a class="logo" href="/">{logoText}</a>
+		<a class="logo" href="/">
+			<img class="logo-mark" src="/brand/logo-mark-white.png" alt="" width="32" height="32" />
+			{logoText}
+		</a>
 		<button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" id="nav-toggle">
 			<span></span>
 		</button>
@@ -57,11 +60,20 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 	}
 
 	.logo {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
 		font-weight: 700;
 		font-size: 1.15rem;
 		letter-spacing: -0.01em;
 		color: var(--serv-off);
 		text-decoration: none;
+	}
+
+	.logo-mark {
+		width: 32px;
+		height: 32px;
+		flex: none;
 	}
 
 	nav {

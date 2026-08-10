@@ -11,7 +11,8 @@ const email = settings.footer_email ?? 'info@servresults.com';
 
 <footer class="site-footer">
 	<div class="wrap">
-		<span>
+		<span class="footer-brand">
+			<img class="footer-mark" src="/brand/logo-mark-color.png" alt="" width="22" height="22" />
 			{address} &middot; {phone} &middot; {email}
 		</span>
 		<span class="footer-links">
@@ -37,6 +38,16 @@ const email = settings.footer_email ?? 'info@servresults.com';
 		padding-block: 1.375rem;
 		font-size: 0.78rem;
 		color: var(--serv-text-muted-on-light);
+	}
+
+	.footer-brand {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+	}
+
+	.footer-mark {
+		flex: none;
 	}
 
 	.footer-links {

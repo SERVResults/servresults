@@ -34,6 +34,8 @@ const defaultPillars = [
 const pillars = content.features?.length ? content.features : defaultPillars;
 
 const team = [
+	{ name: 'Scot Eisenfelder', title: 'Founder/Managing Partner - SERV Holdings', photo: '/team/scot-eisenfelder.png' },
+	{ name: 'Rob Volatile', title: 'Founder/Managing Partner - SERV Holdings', photo: '/team/rob-volatile.jpg' },
 	{ name: 'Sean Vega', title: 'CEO / Managing Partner', photo: '/team/sean-vega.jpg' },
 	{ name: 'Scottie Eisenfelder', title: 'CPO / Operating Partner', photo: '/team/scottie-eisenfelder.png' },
 	{ name: 'Jay Erkman', title: 'Vice President, Sales / Partner', photo: '/team/jay-erkman.jpg' },
@@ -43,8 +45,6 @@ const team = [
 	{ name: 'Karen Wallace', title: 'Accounting & Office Director', photo: '/team/karen-wallace.png' },
 	{ name: 'Jennifer Volatile', title: 'HR Director', photo: '/team/jennifer-volatile.png' },
 	{ name: 'Joe Finger', title: 'SERV Results', photo: '/team/joe-finger.png' },
-	{ name: 'Scot Eisenfelder', title: 'Founder/Managing Partner - SERV Holdings', photo: '/team/scot-eisenfelder.png' },
-	{ name: 'Rob Volatile', title: 'Founder/Managing Partner - SERV Holdings', photo: '/team/rob-volatile.jpg' },
 ];
 ---
 
@@ -101,8 +101,7 @@ const team = [
 				{
 					[
 						'Subaru', 'Mazda', 'Chevrolet', 'GM', 'Lincoln', 'Mitsubishi', 'Buick', 'Kia', 'Honda', 'Hyundai',
-						'Ford', 'GMC', 'Nissan', 'Stellantis', 'Dodge', 'Acura', 'Porsche', 'Audi', 'Mercedes-Benz',
-						'Jaguar', 'Land Rover', 'Bentley', 'Ferrari',
+						'Ford', 'GMC', 'Nissan', 'Stellantis', 
 					].map((brand) => (
 						<li class="brand-chip">
 							<span>{brand}</span>
@@ -268,8 +267,8 @@ const team = [
 
 	.brand-list {
 		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		gap: 1px;
 		background: var(--serv-border-on-light-strong);
 		border: 1px solid var(--serv-border-on-light-strong);
@@ -282,7 +281,7 @@ const team = [
 		padding: 0.875rem 1.25rem;
 		display: flex;
 		align-items: center;
-		flex: 1 1 auto;
+		justify-content: center;
 	}
 
 	.brand-chip span {
