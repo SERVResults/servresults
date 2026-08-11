@@ -1,6 +1,6 @@
 # SERV Results — Marketing Website
 
-Marketing site for [SERV Results](https://servresults.com), a B2B digital marketing platform for car dealerships. Built with [Astro](https://astro.build) (static output) and [Storyblok](https://www.storyblok.com) for CMS-managed content.
+Marketing site for [SERV Results](https://www.servresults.com), a B2B digital marketing platform for car dealerships. Built with [Astro](https://astro.build) (static output) and [Storyblok](https://www.storyblok.com) for CMS-managed content.
 
 ## Project structure
 
@@ -79,7 +79,7 @@ This repo uses Astro's standard static build (`output: 'static'`), which Amplify
 3. Add environment variables in the Amplify app settings (App settings → Environment variables): `STORYBLOK_TOKEN` and `PUBLIC_CONTACT_FUNCTION_URL` (see `functions/contact-form/README.md` for deploying that function and getting its URL).
 4. Push to the connected branch to trigger a deploy.
 
-**Rollout plan (per client decision):** the current live site (servresults.com, on Wix) stays up during the rebuild. Point a subdomain (e.g. `new.servresults.com`) at this Amplify app first for client review; only cut the apex domain over from Wix to Amplify after approval.
+**Domain setup:** `www.servresults.com` is the canonical domain — a CNAME record on GoDaddy points it directly at the Amplify app's CloudFront distribution. The bare apex (`servresults.com`) can't get a matching ALIAS/ANAME record because GoDaddy's DNS product doesn't support that record type at the zone apex, so it instead uses GoDaddy's domain forwarding feature (permanent redirect, with SSL) to send visitors to `https://www.servresults.com`. If the apex ever needs to serve traffic directly instead of redirecting, that requires moving the domain's nameservers to a DNS provider that supports ALIAS/ANAME (e.g. Route 53) — a bigger change, since every existing record (MX, SPF, DKIM, the M365 verification TXT) would need to be recreated there too.
 
 ## Brand
 

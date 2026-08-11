@@ -19,8 +19,11 @@ const httpsConfig =
 		: undefined;
 
 // The production domain, used for the sitemap, canonical link tags, and
-// Open Graph URLs.
-const SITE = 'https://servresults.com';
+// Open Graph URLs. www, not the bare apex — GoDaddy can't do an ALIAS/ANAME
+// record at the zone apex, so servresults.com 301-redirects (via GoDaddy
+// domain forwarding) to this, which is the domain actually served by
+// Amplify/CloudFront.
+const SITE = 'https://www.servresults.com';
 
 // The Storyblok bridge (click-to-edit, live-reload on publish) only ever
 // does anything when the site is opened through the Visual Editor, which
