@@ -101,6 +101,20 @@
 				"type": "textarea",
 				"display_name": "CTA band subheading"
 			},
+			"differentiators_eyebrow": {
+				"type": "text",
+				"display_name": "Differentiators eyebrow label (Auto Insights)"
+			},
+			"differentiators_heading": {
+				"type": "text",
+				"display_name": "Differentiators heading (Auto Insights)"
+			},
+			"differentiators": {
+				"type": "bloks",
+				"display_name": "Differentiator cards (Auto Insights)",
+				"restrict_components": true,
+				"component_whitelist": ["feature-item"]
+			},
 			"body": {
 				"type": "bloks",
 				"display_name": "Body",

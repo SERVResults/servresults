@@ -44,6 +44,34 @@ const fallbackSteps = [
 		body: 'Reporting compares 1st party lead volume and close rate before and after. The 30% increase is the floor we commit to.',
 	},
 ];
+
+const differentiatorsEyebrow = content.differentiators_eyebrow ?? 'Why Auto Insights';
+const differentiatorsHeading =
+	content.differentiators_heading ?? "Built different from every other identity solution";
+
+const defaultDifferentiators = [
+	{
+		heading: 'Build a database that you own',
+		body: "Most providers never show you their marketing lists. We show you exactly who's visiting your website.",
+	},
+	{
+		heading: 'True conquest',
+		body: 'We address shoppers who have never done business with your dealership. Other solutions can only show previous customers.',
+	},
+	{
+		heading: 'Not an IP or cookie-based solution',
+		body: 'Those approaches are legally questionable and inaccurate. We create a double opt-in from each website visitor, so our lists are fully marketable and compliant.',
+	},
+	{
+		heading: "Doesn't require access to your dealership databases",
+		body: "Our program doesn't require DMS or CRM feeds.",
+	},
+	{
+		heading: 'Transparent results',
+		body: 'An end-to-end solution where the result is high-closing leads delivered to your CRM.',
+	},
+];
+const differentiators = content.differentiators?.length ? content.differentiators : defaultDifferentiators;
 ---
 
 <BaseLayout
@@ -101,6 +129,24 @@ const fallbackSteps = [
 							</div>
 						))
 					)
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="differentiators">
+		<div class="wrap">
+			<p class="eyebrow eyebrow-deep">{differentiatorsEyebrow}</p>
+			<h2>{differentiatorsHeading}</h2>
+
+			<div class="differentiator-grid">
+				{
+					differentiators.map((item) => (
+						<div class="differentiator-card">
+							<h3>{item.heading}</h3>
+							<p>{item.body}</p>
+						</div>
+					))
 				}
 			</div>
 		</div>
@@ -195,6 +241,57 @@ const fallbackSteps = [
 
 	@media (max-width: 420px) {
 		.stat-bar {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.differentiators {
+		background: #fff;
+		border-top: 1px solid var(--serv-border-on-light);
+		padding-block: clamp(3rem, 5vw, 4.75rem);
+	}
+
+	.differentiators h2 {
+		font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+		letter-spacing: -0.02em;
+		color: var(--serv-ink);
+		max-width: 34ch;
+		margin: 0.625rem 0 2.5rem;
+	}
+
+	.differentiator-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+
+	.differentiator-card {
+		border: 1px solid var(--serv-border-on-light);
+		padding: 1.75rem 1.625rem;
+	}
+
+	.differentiator-card h3 {
+		font-size: 1.06rem;
+		line-height: 1.35;
+		color: var(--serv-ink);
+		margin: 0 0 0.625rem;
+	}
+
+	.differentiator-card p {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: var(--serv-text-muted-on-light);
+		margin: 0;
+	}
+
+	@media (max-width: 900px) {
+		.differentiator-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 560px) {
+		.differentiator-grid {
 			grid-template-columns: 1fr;
 		}
 	}
