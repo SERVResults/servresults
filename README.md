@@ -70,13 +70,17 @@ Until those stories exist in Storyblok, the corresponding pages render clearly-m
 
 The `/contact` page offers two options: an embedded Microsoft Bookings widget for scheduling a demo directly, and a quick-message form (`src/components/ContactForm.astro`, name/email/dealership name/message). The form posts through `submitContactForm` in `src/lib/submitContactForm.ts` to a standalone Lambda function (`functions/contact-form`) that sends the email via Amazon SES, authenticated via the function's own IAM role — no API key involved. See `functions/contact-form/README.md` to deploy it.
 
+## Analytics (Google Tag Manager)
+
+Set `PUBLIC_GTM_ID` (e.g. `GTM-XXXXXXX`, from tagmanager.google.com → Admin → Container Settings) to enable GTM. The snippet in `src/layouts/BaseLayout.astro` only renders when this is set, so leaving it blank (the default, including in local dev via `.env`) keeps the site tag-free. Tags, triggers, and any consent-mode configuration are managed entirely in the GTM container itself, not in this codebase.
+
 ## Deployment (AWS Amplify Hosting)
 
 This repo uses Astro's standard static build (`output: 'static'`), which Amplify's default Astro build settings support out of the box:
 
 1. Connect this git repository in the Amplify console.
 2. Amplify auto-detects Astro; confirm build settings: build command `npm run build`, output directory `dist`.
-3. Add environment variables in the Amplify app settings (App settings → Environment variables): `STORYBLOK_TOKEN` and `PUBLIC_CONTACT_FUNCTION_URL` (see `functions/contact-form/README.md` for deploying that function and getting its URL).
+3. Add environment variables in the Amplify app settings (App settings → Environment variables): `STORYBLOK_TOKEN`, `PUBLIC_CONTACT_FUNCTION_URL` (see `functions/contact-form/README.md` for deploying that function and getting its URL), and `PUBLIC_GTM_ID` (see Analytics below).
 4. Push to the connected branch to trigger a deploy.
 
 **Domain setup:** `www.servresults.com` is the canonical domain — a CNAME record on GoDaddy points it directly at the Amplify app's CloudFront distribution. The bare apex (`servresults.com`) can't get a matching ALIAS/ANAME record because GoDaddy's DNS product doesn't support that record type at the zone apex, so it instead uses GoDaddy's domain forwarding feature (permanent redirect, with SSL) to send visitors to `https://www.servresults.com`. If the apex ever needs to serve traffic directly instead of redirecting, that requires moving the domain's nameservers to a DNS provider that supports ALIAS/ANAME (e.g. Route 53) — a bigger change, since every existing record (MX, SPF, DKIM, the M365 verification TXT) would need to be recreated there too.
