@@ -102,15 +102,44 @@
 	}
 
 	#contact-form-status {
-		font-size: 0.9rem;
+		position: fixed;
+		left: 50%;
+		bottom: 1.5rem;
+		z-index: 1000;
+		max-width: min(90vw, 380px);
 		margin: 0;
+		padding: 0.85rem 1.5rem;
+		background: var(--serv-white);
+		border: 1px solid var(--serv-border-on-light-strong);
+		box-shadow: 0 8px 24px rgb(13 18 25 / 14%);
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-align: center;
+		color: var(--serv-text-on-light);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transform: translate(-50%, 0.5rem);
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease,
+			visibility 0.2s;
+	}
+
+	#contact-form-status.is-visible {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: translate(-50%, 0);
 	}
 
 	#contact-form-status[data-state='success'] {
+		border-color: #1a7f37;
 		color: #1a7f37;
 	}
 
 	#contact-form-status[data-state='error'] {
+		border-color: #c0342c;
 		color: #c0342c;
 	}
 </style>
@@ -120,6 +149,18 @@
 
 	const form = document.getElementById('contact-form') as HTMLFormElement | null;
 	const status = document.getElementById('contact-form-status');
+	let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
+	function showToast(state: 'success' | 'error' | '', message: string, autoHide = false) {
+		if (!status) return;
+		clearTimeout(hideTimer);
+		status.dataset.state = state;
+		status.textContent = message;
+		status.classList.add('is-visible');
+		if (autoHide) {
+			hideTimer = setTimeout(() => status.classList.remove('is-visible'), 5000);
+		}
+	}
 
 	form?.addEventListener('submit', async (event) => {
 		event.preventDefault();
@@ -128,8 +169,7 @@
 		const data = new FormData(form);
 		const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 		submitButton?.setAttribute('disabled', 'true');
-		status.dataset.state = '';
-		status.textContent = 'Sending...';
+		showToast('', 'Sending...');
 
 		const result = await submitContactForm({
 			name: String(data.get('name') ?? ''),
@@ -142,12 +182,10 @@
 		submitButton?.removeAttribute('disabled');
 
 		if (result.ok) {
-			status.dataset.state = 'success';
-			status.textContent = "Thanks - we'll be in touch shortly.";
+			showToast('success', "Thanks - we'll be in touch shortly.", true);
 			form.reset();
 		} else {
-			status.dataset.state = 'error';
-			status.textContent = result.error ?? 'Something went wrong. Please try again.';
+			showToast('error', result.error ?? 'Something went wrong. Please try again.', true);
 		}
 	});
 </script>
