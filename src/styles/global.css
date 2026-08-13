@@ -276,12 +276,6 @@ svg {
 	}
 }
 
-@keyframes drawOn {
-	to {
-		stroke-dashoffset: 0;
-	}
-}
-
 @keyframes floatY {
 	0%,
 	100% {
