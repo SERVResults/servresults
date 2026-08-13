@@ -19,26 +19,191 @@ const { variant = 'home', withCar = false } = Astro.props;
 	{
 		withCar && (
 			<div class="hero-field__road">
-				<div class="hero-field__car">
-					<svg viewBox="0 0 120 44" width="120" height="44">
+				<div class="hero-field__road-line hero-field__road-line--a"></div>
+				<div class="hero-field__road-line hero-field__road-line--b"></div>
+				<div class="hero-field__road-line hero-field__road-line--c"></div>
+
+				<div class="hero-field__car hero-field__car--a">
+					<svg viewBox="0 0 660 268" width="100%" role="img" aria-label="Stylized car illustration">
+						<defs>
+							<g id="1a-wa">
+								<circle r="44" fill="none" stroke="#ffffff" stroke-width="9"></circle>
+								<circle r="34" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.7"></circle>
+								<circle r="27" fill="none" stroke="#ffffff" stroke-width="3"></circle>
+								<circle r="9.5" fill="#ffffff"></circle>
+								<circle cx="7.6" cy="-10.5" r="1.8" fill="#0e1424"></circle>
+								<circle cx="12.4" cy="4.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="0.0" cy="13.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="-12.4" cy="4.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="-7.6" cy="-10.5" r="1.8" fill="#0e1424"></circle>
+								<g stroke="#ffffff" stroke-width="2.2">
+									<line x1="0.0" y1="-9.5" x2="0.0" y2="-25.5"></line>
+									<line x1="5.6" y1="-7.7" x2="15.0" y2="-20.6"></line>
+									<line x1="9.0" y1="-2.9" x2="24.3" y2="-7.9"></line>
+									<line x1="9.0" y1="2.9" x2="24.3" y2="7.9"></line>
+									<line x1="5.6" y1="7.7" x2="15.0" y2="20.6"></line>
+									<line x1="0.0" y1="9.5" x2="0.0" y2="25.5"></line>
+									<line x1="-5.6" y1="7.7" x2="-15.0" y2="20.6"></line>
+									<line x1="-9.0" y1="2.9" x2="-24.3" y2="7.9"></line>
+									<line x1="-9.0" y1="-2.9" x2="-24.3" y2="-7.9"></line>
+									<line x1="-5.6" y1="-7.7" x2="-15.0" y2="-20.6"></line>
+								</g>
+							</g>
+						</defs>
+						<g stroke="#3d4870" stroke-width="1">
+							<line x1="34" y1="60" x2="34" y2="240"></line>
+							<line x1="628" y1="60" x2="628" y2="240"></line>
+							<line x1="34" y1="66" x2="628" y2="66"></line>
+						</g>
+						<text x="331" y="58" text-anchor="middle" fill="#9aa4bd" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1">4 826 MM</text>
 						<path
-							d="M3 33 C4 25 10 21 24 20 C33 12 45 9 58 9 C71 9 81 12 89 20 L104 22 C112 24 117 27 117 33"
+							d="M 40 195 L 34 168 C 34 150 44 138 62 134 L 150 126 L 218 84 C 226 79 236 76 246 76 L 352 76 C 372 76 390 84 404 98 L 448 122 L 566 138 C 596 143 616 152 622 166 C 628 178 626 190 618 196 L 525 198 A 55 55 0 0 0 415 198 L 225 198 A 55 55 0 0 0 115 198 Z"
 							fill="none"
-							stroke="var(--serv-off)"
-							stroke-width="1.8"
+							stroke="#ffffff"
+							stroke-width="3.5"
 							stroke-linejoin="round"
-							stroke-linecap="round"
-						/>
-						<line x1="3" y1="33" x2="117" y2="33" stroke="var(--serv-off)" stroke-width="1.8" stroke-linecap="round" />
-						<g class="hero-field__wheel">
-							<circle cx="31" cy="33" r="7.5" fill="var(--serv-primary)" />
-							<line x1="31" y1="27.5" x2="31" y2="38.5" stroke="var(--serv-ink)" stroke-width="1.4" opacity="0.6" />
+						></path>
+						<path
+							d="M 256 90 L 340 90 L 340 122 L 240 122 Z M 352 90 L 420 122 L 352 122 Z M 234 96 L 234 122 L 182 122 Z"
+							fill="none"
+							stroke="#ffffff"
+							stroke-width="2.5"
+							stroke-linejoin="round"
+						></path>
+						<path
+							d="M 62 152 L 300 148 L 566 150 M 250 126 L 250 196 M 344 126 L 348 196 M 448 124 L 452 138"
+							fill="none"
+							stroke="#ffffff"
+							stroke-width="1.8"
+							opacity="0.55"
+						></path>
+						<path d="M 36 146 L 54 143 L 54 158 L 36 158 Z M 592 148 L 620 159 L 617 172 L 590 165 Z" fill="none" stroke="#3a5fc0" stroke-width="2.5"></path>
+						<path d="M 278 142 h 32 v 8 h -32 z M 374 142 h 32 v 8 h -32 z" fill="none" stroke="#ffffff" stroke-width="1.8"></path>
+						<g style="transform-box:view-box; transform-origin:170px 185px; animation:spin 3.2s linear infinite;"><use href="#1a-wa" transform="translate(170 185)"></use></g>
+						<g style="transform-box:view-box; transform-origin:470px 185px; animation:spin 3.2s linear infinite;"><use href="#1a-wa" transform="translate(470 185)"></use></g>
+						<g stroke="#3a5fc0" stroke-width="1.5">
+							<line x1="170" y1="231" x2="170" y2="248"></line>
+							<line x1="470" y1="231" x2="470" y2="248"></line>
+							<line x1="170" y1="244" x2="470" y2="244" stroke-dasharray="300" stroke-dashoffset="300" style="animation:drawOn 2.4s ease-out infinite alternate;"
+							></line>
 						</g>
-						<g class="hero-field__wheel">
-							<circle cx="97" cy="33" r="7.5" fill="var(--serv-primary)" />
-							<line x1="97" y1="27.5" x2="97" y2="38.5" stroke="var(--serv-ink)" stroke-width="1.4" opacity="0.6" />
+						<circle cx="170" cy="185" r="3" fill="#3a5fc0"></circle>
+						<circle cx="470" cy="185" r="3" fill="#3a5fc0"></circle>
+					</svg>
+				</div>
+
+				<div class="hero-field__car hero-field__car--b">
+					<svg viewBox="0 0 660 268" width="100%" role="img" aria-label="Stylized car illustration">
+						<defs>
+							<pattern id="1d-patHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+								<line x1="0" y1="0" x2="0" y2="9" stroke="#3a5fc0" stroke-width="3.2"></line>
+							</pattern>
+							<g id="1d-wd">
+								<circle r="44" fill="none" stroke="#ffffff" stroke-width="9"></circle>
+								<circle r="34" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.7"></circle>
+								<circle r="27" fill="none" stroke="#ffffff" stroke-width="3"></circle>
+								<circle r="9.5" fill="#ffffff"></circle>
+								<circle cx="7.6" cy="-10.5" r="1.8" fill="#0e1424"></circle>
+								<circle cx="12.4" cy="4.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="0.0" cy="13.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="-12.4" cy="4.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="-7.6" cy="-10.5" r="1.8" fill="#0e1424"></circle>
+								<g stroke="#ffffff" stroke-width="2.2">
+									<line x1="0.0" y1="-9.5" x2="0.0" y2="-25.5"></line>
+									<line x1="5.6" y1="-7.7" x2="15.0" y2="-20.6"></line>
+									<line x1="9.0" y1="-2.9" x2="24.3" y2="-7.9"></line>
+									<line x1="9.0" y1="2.9" x2="24.3" y2="7.9"></line>
+									<line x1="5.6" y1="7.7" x2="15.0" y2="20.6"></line>
+									<line x1="0.0" y1="9.5" x2="0.0" y2="25.5"></line>
+									<line x1="-5.6" y1="7.7" x2="-15.0" y2="20.6"></line>
+									<line x1="-9.0" y1="2.9" x2="-24.3" y2="7.9"></line>
+									<line x1="-9.0" y1="-2.9" x2="-24.3" y2="-7.9"></line>
+									<line x1="-5.6" y1="-7.7" x2="-15.0" y2="-20.6"></line>
+								</g>
+							</g>
+						</defs>
+						<ellipse cx="330" cy="238" rx="268" ry="7" fill="#ffffff" opacity="0.14"></ellipse>
+						<path
+							d="M 40 195 L 34 168 C 34 150 44 138 62 134 L 150 126 L 218 84 C 226 79 236 76 246 76 L 352 76 C 372 76 390 84 404 98 L 448 122 L 566 138 C 596 143 616 152 622 166 C 628 178 626 190 618 196 L 525 198 A 55 55 0 0 0 415 198 L 225 198 A 55 55 0 0 0 115 198 Z"
+							fill="url(#1d-patHatch)"
+						></path>
+						<path
+							d="M 40 195 L 34 168 C 34 150 44 138 62 134 L 150 126 L 218 84 C 226 79 236 76 246 76 L 352 76 C 372 76 390 84 404 98 L 448 122 L 566 138 C 596 143 616 152 622 166 C 628 178 626 190 618 196 L 525 198 A 55 55 0 0 0 415 198 L 225 198 A 55 55 0 0 0 115 198 Z"
+							fill="none"
+							stroke="#ffffff"
+							stroke-width="3.5"
+							stroke-linejoin="round"
+						></path>
+						<path
+							d="M 256 90 L 340 90 L 340 122 L 240 122 Z M 352 90 L 420 122 L 352 122 Z M 234 96 L 234 122 L 182 122 Z"
+							fill="#171f36"
+							stroke="#ffffff"
+							stroke-width="2.5"
+							stroke-linejoin="round"
+						></path>
+						<path
+							d="M 62 152 L 300 148 L 566 150 M 250 126 L 250 196 M 344 126 L 348 196 M 448 124 L 452 138"
+							fill="none"
+							stroke="#ffffff"
+							stroke-width="1.8"
+						></path>
+						<path d="M 36 146 L 54 143 L 54 158 L 36 158 Z M 592 148 L 620 159 L 617 172 L 590 165 Z" fill="#0e1424" stroke="#ffffff" stroke-width="2.5"></path>
+						<path d="M 278 142 h 32 v 8 h -32 z M 374 142 h 32 v 8 h -32 z" fill="#ffffff"></path>
+						<g style="transform-box:view-box; transform-origin:170px 185px; animation:spin 3.2s linear infinite;"><use href="#1d-wd" transform="translate(170 185)"></use></g>
+						<g style="transform-box:view-box; transform-origin:470px 185px; animation:spin 3.2s linear infinite;"><use href="#1d-wd" transform="translate(470 185)"></use></g>
+					</svg>
+				</div>
+
+				<div class="hero-field__car hero-field__car--c">
+					<svg viewBox="0 0 660 268" width="100%" role="img" aria-label="Stylized car illustration">
+						<defs>
+							<g id="1b-wb">
+								<circle r="44" fill="none" stroke="#ffffff" stroke-width="9"></circle>
+								<circle r="34" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.7"></circle>
+								<circle r="27" fill="none" stroke="#ffffff" stroke-width="3"></circle>
+								<circle r="9.5" fill="#ffffff"></circle>
+								<circle cx="7.6" cy="-10.5" r="1.8" fill="#0e1424"></circle>
+								<circle cx="12.4" cy="4.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="0.0" cy="13.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="-12.4" cy="4.0" r="1.8" fill="#0e1424"></circle>
+								<circle cx="-7.6" cy="-10.5" r="1.8" fill="#0e1424"></circle>
+								<g stroke="#ffffff" stroke-width="2.2">
+									<line x1="0.0" y1="-9.5" x2="0.0" y2="-25.5"></line>
+									<line x1="5.6" y1="-7.7" x2="15.0" y2="-20.6"></line>
+									<line x1="9.0" y1="-2.9" x2="24.3" y2="-7.9"></line>
+									<line x1="9.0" y1="2.9" x2="24.3" y2="7.9"></line>
+									<line x1="5.6" y1="7.7" x2="15.0" y2="20.6"></line>
+									<line x1="0.0" y1="9.5" x2="0.0" y2="25.5"></line>
+									<line x1="-5.6" y1="7.7" x2="-15.0" y2="20.6"></line>
+									<line x1="-9.0" y1="2.9" x2="-24.3" y2="7.9"></line>
+									<line x1="-9.0" y1="-2.9" x2="-24.3" y2="-7.9"></line>
+									<line x1="-5.6" y1="-7.7" x2="-15.0" y2="-20.6"></line>
+								</g>
+							</g>
+						</defs>
+						<path
+							d="M 40 195 L 34 168 C 34 150 44 138 62 134 L 150 126 L 218 84 C 226 79 236 76 246 76 L 352 76 C 372 76 390 84 404 98 L 448 122 L 566 138 C 596 143 616 152 622 166 C 628 178 626 190 618 196 L 525 198 A 55 55 0 0 0 415 198 L 225 198 A 55 55 0 0 0 115 198 Z"
+							fill="#3a5fc0"
+							transform="translate(10 10)"
+						></path>
+						<g style="transform-box:view-box; transform-origin:center; animation:floatY 5s ease-in-out infinite;">
+							<path
+								d="M 40 195 L 34 168 C 34 150 44 138 62 134 L 150 126 L 218 84 C 226 79 236 76 246 76 L 352 76 C 372 76 390 84 404 98 L 448 122 L 566 138 C 596 143 616 152 622 166 C 628 178 626 190 618 196 L 525 198 A 55 55 0 0 0 415 198 L 225 198 A 55 55 0 0 0 115 198 Z"
+								fill="#ffffff"
+							></path>
+							<path
+								d="M 256 90 L 340 90 L 340 122 L 240 122 Z M 352 90 L 420 122 L 352 122 Z M 234 96 L 234 122 L 182 122 Z"
+								fill="#171f36"
+							></path>
+							<path d="M 36 146 L 54 143 L 54 158 L 36 158 Z M 592 148 L 620 159 L 617 172 L 590 165 Z" fill="#0e1424"></path>
+							<path d="M 278 142 h 32 v 8 h -32 z M 374 142 h 32 v 8 h -32 z" fill="#0e1424"></path>
+							<path d="M 62 152 L 300 148 L 566 150 M 250 126 L 250 196 M 344 126 L 348 196" fill="none" stroke="#0e1424" stroke-width="1.8" opacity="0.4"></path>
+							<rect x="120" y="180" width="400" height="7" fill="#3a5fc0"></rect>
 						</g>
-						<ellipse cx="60" cy="37" rx="52" ry="4" fill="var(--serv-primary)" opacity="0.22" />
+						<g style="transform-box:view-box; transform-origin:170px 185px; animation:spin 3.2s linear infinite;"><use href="#1b-wb" transform="translate(170 185)"></use></g>
+						<g style="transform-box:view-box; transform-origin:470px 185px; animation:spin 3.2s linear infinite;"><use href="#1b-wb" transform="translate(470 185)"></use></g>
+						<circle cx="170" cy="185" r="8" fill="#3a5fc0"></circle>
+						<circle cx="470" cy="185" r="8" fill="#3a5fc0"></circle>
 					</svg>
 				</div>
 			</div>
@@ -101,23 +266,55 @@ const { variant = 'home', withCar = false } = Astro.props;
 		inset: 0;
 	}
 
-	.hero-field__road::before {
-		content: '';
+	/* Three stacked lanes, each with its own road line and car, replacing
+	   the single road/car pair. Line-to-car vertical offset (8px) matches
+	   the original single-lane relationship. */
+	.hero-field__road-line {
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: 22px;
 		height: 1px;
 		background: var(--serv-border-on-dark);
 	}
 
+	.hero-field__road-line--a {
+		bottom: 22px;
+	}
+
+	.hero-field__road-line--b {
+		bottom: 78px;
+	}
+
+	.hero-field__road-line--c {
+		bottom: 134px;
+	}
+
 	.hero-field__car {
 		position: absolute;
-		bottom: 14px;
 		left: -16%;
 		width: 96px;
-		animation: servDriveR 13s linear infinite;
+		animation-name: servDriveR;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
 		animation-play-state: var(--serv-play, running);
+	}
+
+	.hero-field__car--a {
+		bottom: 14px;
+		animation-duration: 13s;
+		animation-delay: 0s;
+	}
+
+	.hero-field__car--b {
+		bottom: 70px;
+		animation-duration: 15s;
+		animation-delay: -5s;
+	}
+
+	.hero-field__car--c {
+		bottom: 126px;
+		animation-duration: 17s;
+		animation-delay: -10s;
 	}
 
 	@media (min-width: 640px) {
@@ -126,28 +323,24 @@ const { variant = 'home', withCar = false } = Astro.props;
 		}
 	}
 
-	.hero-field__wheel {
-		transform-box: fill-box;
-		transform-origin: center;
-		animation: servSpin 1s linear infinite;
-		animation-duration: var(--serv-wheel, 1s);
-		animation-play-state: var(--serv-play, running);
-	}
-
 	/* The car crosses the same 132%-of-viewport-width distance regardless of
 	   screen size, so on a narrow phone screen it covers far fewer of its own
 	   body-lengths per second than on desktop and reads as crawling rather
-	   than driving. Shorten the crossing (and spin the wheels proportionally
-	   faster) below the breakpoint where the car is already at its smaller
-	   96px size. Placed after the base rules above so it wins the cascade
+	   than driving. Shorten the crossing below the breakpoint where the cars
+	   are already at their smaller 96px size, keeping each lane's relative
+	   pacing. Placed after the base rules above so it wins the cascade
 	   despite matching them on specificity. */
 	@media (max-width: 639px) {
-		.hero-field__car {
+		.hero-field__car--a {
 			animation-duration: 4.5s;
 		}
 
-		.hero-field__wheel {
-			animation-duration: 0.35s;
+		.hero-field__car--b {
+			animation-duration: 5.2s;
+		}
+
+		.hero-field__car--c {
+			animation-duration: 5.9s;
 		}
 	}
 </style>
