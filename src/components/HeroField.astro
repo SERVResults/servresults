@@ -220,12 +220,14 @@ const { variant = 'home', withCar = false } = Astro.props;
 
 	.hero-field__car--a1 {
 		bottom: 14px;
+		z-index: 3;
 		animation-duration: 13s;
 		animation-delay: 0s;
 	}
 
 	.hero-field__car--a2 {
 		bottom: 12px;
+		z-index: 2;
 		width: 79px;
 		animation-duration: 16s;
 		animation-delay: -6s;
@@ -233,6 +235,7 @@ const { variant = 'home', withCar = false } = Astro.props;
 
 	.hero-field__car--b {
 		bottom: 70px;
+		z-index: 1;
 		width: 60px;
 		animation-duration: 19s;
 		animation-delay: -9s;
