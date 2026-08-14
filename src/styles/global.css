@@ -266,6 +266,27 @@ svg {
 	}
 }
 
+/* Referenced by inline style="animation:..." attributes on the imported
+   hero car SVGs (public source: "Car animation SVG variants.zip"). Kept
+   as plain (unscoped) global names since the SVG markup references them
+   directly and isn't aware of Astro's scoped-style hashing. */
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes floatY {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
 @keyframes servDriveR {
 	from {
 		left: -16%;
