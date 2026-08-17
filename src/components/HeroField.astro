@@ -210,8 +210,10 @@ const { variant = 'home', withCar = false } = Astro.props;
 
 	.hero-field__car {
 		position: absolute;
-		left: -16%;
+		left: 0;
 		width: 96px;
+		transform: translateX(-16vw);
+		will-change: transform;
 		animation-name: servDriveR;
 		animation-timing-function: linear;
 		animation-iteration-count: infinite;

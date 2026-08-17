@@ -289,11 +289,11 @@ svg {
 
 @keyframes servDriveR {
 	from {
-		left: -16%;
+		transform: translateX(-16vw);
 	}
 
 	to {
-		left: 116%;
+		transform: translateX(116vw);
 	}
 }
 
